@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Hierarchy Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description" content="An educational tool to visualize memory hierarchy and cache concepts">
+</head>
+<body>
+    <div class="memory-simulator">
+        <h2 class="simulator-header">Memory Hierarchy Simulator</h2>
+        
+        <!-- Information Panel -->
+        <div class="info-panel">
+            <h3>Understanding Memory Hierarchy</h3>
+            <p>This simulator demonstrates how data flows through different levels of memory in a computer system. Watch as memory access requests result in cache hits or misses, and observe how different replacement policies affect cache performance.</p>
+            <p id="current-status">Status: Ready to simulate. Press "Memory Access" to begin.</p>
+        </div>
+        
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-group">
+                <h3>Memory Operations</h3>
+                <div class="control-actions">
+                    <button id="access-btn" class="btn">Memory Access</button>
+                    <button id="clear-btn" class="btn btn-secondary">Reset Cache</button>
+                </div>
+                <div class="settings-group">
+                    <div class="form-group">
+                        <label for="address-input">Memory Address (0-255):</label>
+                        <input type="number" id="address-input" min="0" max="255" value="42">
+                    </div>
+                    <div class="form-group">
+                        <label for="operation-type">Operation:</label>
+                        <select id="operation-type">
+                            <option value="read">Read</option>
+                            <option value="write">Write</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="data-input-group" style="display: none;">
+                        <label for="data-input">Data Value:</label>
+                        <input type="text" id="data-input" value="0xAB12">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Cache Settings</h3>
+                <div class="settings-group">
+                    <div class="form-group">
+                        <label for="replacement-policy">Replacement Policy:</label>
+                        <select id="replacement-policy">
+                            <option value="lru">Least Recently Used (LRU)</option>
+                            <option value="fifo">First In, First Out (FIFO)</option>
+                            <option value="random">Random Replacement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="access-pattern">Access Pattern:</label>
+                        <select id="access-pattern">
+                            <option value="manual">Manual</option>
+                            <option value="sequential">Sequential</option>
+                            <option value="random">Random</option>
+                            <option value="locality">Spatial Locality</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="auto-speed-group" style="display: none;">
+                        <label for="auto-speed">Auto Access Speed:</label>
+                        <select id="auto-speed">
+                            <option value="slow">Slow</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="fast">Fast</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-actions">
+                    <button id="auto-btn" class="btn btn-secondary">Start Auto</button>
+                    <button id="stop-btn" class="btn btn-secondary" disabled>Stop Auto</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div id="total-accesses" class="stat-value">0</div>
+                <div class="stat-label">Total Accesses</div>
+            </div>
+            <div class="stat-card">
+                <div id="l1-hits" class="stat-value">0</div>
+                <div class="stat-label">L1 Cache Hits</div>
+            </div>
+            <div class="stat-card">
+                <div id="l2-hits" class="stat-value">0</div>
+                <div class="stat-label">L2 Cache Hits</div>
+            </div>
+            <div class="stat-card">
+                <div id="misses" class="stat-value">0</div>
+                <div class="stat-label">Cache Misses</div>
+            </div>
+            <div class="stat-card">
+                <div id="hit-ratio" class="stat-value">0%</div>
+                <div class="stat-label">Hit Ratio</div>
+            </div>
+        </div>
+        
+        <!-- Memory Hierarchy Visual -->
+        <div class="memory-hierarchy">
+            <!-- CPU -->
+            <div class="memory-level cpu">
+                <div class="level-title">CPU</div>
+                <div class="memory-blocks">
+                    <div class="cpu-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div id="cpu-register" class="memory-block">
+                        <span class="block-address">Register</span>
+                        <span class="block-data">---</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data path from CPU to L1 -->
+            <div class="data-path cpu-to-l1">
+                <div class="data-packet" id="packet-cpu-l1"></div>
+            </div>
+            
+            <!-- L1 Cache -->
+            <div class="memory-level l1-cache">
+                <div class="level-title">L1 Cache</div>
+                <div class="memory-blocks" id="l1-blocks">
+                    <!-- L1 cache blocks will be generated by JS -->
+                </div>
+            </div>
+            
+            <!-- Data path from L1 to L2 -->
+            <div class="data-path l1-to-l2">
+                <div class="data-packet" id="packet-l1-l2"></div>
+            </div>
+            
+            <!-- L2 Cache -->
+            <div class="memory-level l2-cache">
+                <div class="level-title">L2 Cache</div>
+                <div class="memory-blocks" id="l2-blocks">
+                    <!-- L2 cache blocks will be generated by JS -->
+                </div>
+            </div>
+            
+            <!-- Data path from L2 to RAM -->
+            <div class="data-path l2-to-ram">
+                <div class="data-packet" id="packet-l2-ram"></div>
+            </div>
+            
+            <!-- Main Memory (RAM) -->
+            <div class="memory-level main-memory">
+                <div class="level-title">Main Memory</div>
+                <div class="memory-blocks" id="ram-blocks">
+                    <!-- RAM blocks will be generated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Content -->
+        <div class="education-section">
+            <h3>Key Concepts in Memory Hierarchy</h3>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>Cache Hits & Misses</h4>
+                    <p>A <strong>cache hit</strong> occurs when requested data is found in the cache. A <strong>cache miss</strong> happens when the data must be retrieved from a lower level of memory.</p>
+                </div>
+                <div class="concept-card">
+                    <h4>Cache Replacement Policies</h4>
+                    <p><strong>LRU (Least Recently Used)</strong>: Replaces the data that hasn't been accessed for the longest time.<br>
+                    <strong>FIFO (First In First Out)</strong>: Replaces the oldest data that was loaded into the cache.<br>
+                    <strong>Random</strong>: Replaces data at random when the cache is full.</p>
+                </div>
+                <div class="concept-card">
+                    <h4>Locality of Reference</h4>
+                    <p><strong>Spatial Locality</strong>: Programs tend to access memory locations near recently accessed locations.<br>
+                    <strong>Temporal Locality</strong>: Recently accessed locations are likely to be accessed again soon.</p>
+                </div>
+                <div class="concept-card">
+                    <h4>Memory Hierarchy Levels</h4>
+                    <p>Modern computers use a hierarchy of memory types, from small, fast caches (L1, L2, L3) to larger, slower main memory (RAM) and storage devices, balancing speed and capacity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

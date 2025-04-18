@@ -1,0 +1,483 @@
+/* 
+ * CPU Pipeline Visualizer - Styles
+ * A modern, educational interface for visualizing CPU pipeline execution
+ */
+
+/* ===== BASE STYLES ===== */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Roboto', sans-serif;
+}
+
+body {
+   background-color: #f8f9fa;
+   color: #2c3e50;
+   line-height: 1.6;
+   font-size: 16px;
+}
+
+.container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px;
+}
+
+h1, h2, h3 {
+   color: #2c3e50;
+   font-weight: 500;
+   margin-bottom: 15px;
+}
+
+h1 {
+   font-size: 1.8rem;
+   color: #1a237e;
+}
+
+h2 {
+   font-size: 1.4rem;
+}
+
+h3 {
+   font-size: 1.1rem;
+}
+
+p {
+   margin-bottom: 15px;
+}
+
+/* ===== HEADER SECTION ===== */
+.header {
+   text-align: center;
+   margin-bottom: 25px;
+   padding-bottom: 15px;
+   border-bottom: 1px solid #eceff1;
+}
+
+.header p {
+   color: #546e7a;
+   max-width: 800px;
+   margin: 0 auto;
+}
+
+/* ===== CONTROL PANELS ===== */
+.controls {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 25px;
+   flex-wrap: wrap;
+   gap: 20px;
+}
+
+.control-group {
+   flex: 1;
+   min-width: 300px;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+   transition: box-shadow 0.3s ease;
+}
+
+.control-group:hover {
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== INSTRUCTION INPUT ===== */
+.instruction-input {
+   margin-bottom: 15px;
+}
+
+#instruction-textarea {
+   width: 100%;
+   height: 120px;
+   padding: 12px;
+   font-family: 'Courier New', monospace;
+   font-size: 14px;
+   border: 1px solid #e0e0e0;
+   border-radius: 4px;
+   resize: vertical;
+   transition: border-color 0.3s;
+}
+
+#instruction-textarea:focus {
+   border-color: #2962ff;
+   outline: none;
+}
+
+/* ===== SETTINGS CONTROLS ===== */
+.settings {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 15px;
+   margin-bottom: 20px;
+}
+
+.setting-group {
+   flex: 1;
+   min-width: 200px;
+   position: relative;
+   margin-bottom: 15px;
+}
+
+.setting-group label {
+   display: block;
+   margin-bottom: 8px;
+   color: #455a64;
+   font-weight: 500;
+}
+
+.form-select {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #e0e0e0;
+   border-radius: 4px;
+   background-color: white;
+   font-size: 14px;
+   transition: border-color 0.3s;
+}
+
+.form-select:focus {
+   border-color: #2962ff;
+   outline: none;
+}
+
+/* Setting Help Tooltips */
+.setting-help {
+   display: inline-block;
+   position: relative;
+   margin-left: 5px;
+   color: #546e7a;
+}
+
+.setting-help .tooltip {
+   visibility: hidden;
+   width: 200px;
+   background-color: #2c3e50;
+   color: #fff;
+   text-align: center;
+   border-radius: 4px;
+   padding: 5px;
+   position: absolute;
+   z-index: 1;
+   bottom: 125%;
+   left: 50%;
+   transform: translateX(-50%);
+   opacity: 0;
+   transition: opacity 0.3s;
+   font-size: 12px;
+}
+
+.setting-help:hover .tooltip {
+   visibility: visible;
+   opacity: 1;
+}
+
+/* ===== CODE EXAMPLE BOX ===== */
+.code-example {
+   background-color: #f5f7fa;
+   padding: 15px;
+   border-radius: 8px;
+   margin-bottom: 20px;
+   overflow-x: auto;
+}
+
+.code-example h3 {
+   margin-bottom: 10px;
+   color: #455a64;
+   font-size: 0.9rem;
+   text-transform: uppercase;
+}
+
+.code-example pre {
+   font-family: 'Courier New', monospace;
+   white-space: pre;
+   font-size: 13px;
+   color: #37474f;
+   line-height: 1.6;
+}
+
+/* ===== BUTTONS ===== */
+.action-buttons, .execution-controls {
+   display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+}
+
+.btn {
+   padding: 10px 15px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-weight: 500;
+   font-size: 14px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   transition: all 0.3s ease;
+}
+
+.btn i {
+   font-size: 14px;
+}
+
+.btn-primary {
+   background-color: #2962ff;
+   color: white;
+}
+
+.btn-primary:hover {
+   background-color: #0039cb;
+}
+
+.btn-secondary {
+   background-color: #eceff1;
+   color: #455a64;
+}
+
+.btn-secondary:hover {
+   background-color: #cfd8dc;
+}
+
+.btn:disabled {
+   opacity: 0.6;
+   cursor: not-allowed;
+}
+
+/* ===== CYCLE COUNTER ===== */
+.cycle-counter {
+   background-color: #e3f2fd;
+   border-radius: 4px;
+   padding: 10px 15px;
+   margin: 15px 0;
+   display: inline-block;
+   font-weight: 500;
+}
+
+.counter-value {
+   font-size: 18px;
+   font-weight: 600;
+   color: #1a237e;
+   margin-left: 5px;
+}
+
+/* ===== EXPLANATION PANEL ===== */
+.explanation-panel {
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 8px;
+   margin-bottom: 25px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.explanation-content {
+   color: #37474f;
+   font-size: 14px;
+   line-height: 1.6;
+}
+
+.explanation-content strong {
+   color: #1a237e;
+}
+
+.stall-indicator {
+   color: #b71c1c;
+   font-weight: 600;
+}
+
+.empty-stage {
+   color: #9e9e9e;
+   font-style: italic;
+}
+
+/* ===== PIPELINE VISUALIZATION ===== */
+.pipeline-container {
+   overflow-x: auto;
+   margin-bottom: 25px;
+   background-color: #fff;
+   border-radius: 8px;
+   padding: 20px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.pipeline-grid {
+   display: grid;
+   grid-template-columns: 150px repeat(10, 100px);
+   grid-auto-rows: 60px;
+   grid-gap: 3px;
+   min-width: 1000px;
+}
+
+.pipeline-header, .cycle-header, .pipeline-cell {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 10px;
+   font-size: 14px;
+   text-align: center;
+   border-radius: 4px;
+   overflow: hidden;
+   position: relative;
+}
+
+.pipeline-header {
+   background-color: #1a237e;
+   color: white;
+   font-weight: 600;
+}
+
+.cycle-header {
+   background-color: #3949ab;
+   color: white;
+   font-weight: 500;
+}
+
+.pipeline-cell {
+   background-color: #f5f7fa;
+   border: 1px solid #e0e0e0;
+   transition: all 0.3s ease;
+}
+
+/* Pipeline Stage Colors */
+.pipeline-cell.if {
+   background-color: #e3f2fd;
+   border-color: #bbdefb;
+}
+
+.pipeline-cell.id {
+   background-color: #e8f5e9;
+   border-color: #c8e6c9;
+}
+
+.pipeline-cell.ex {
+   background-color: #fff3e0;
+   border-color: #ffe0b2;
+}
+
+.pipeline-cell.mem {
+   background-color: #f3e5f5;
+   border-color: #e1bee7;
+}
+
+.pipeline-cell.wb {
+   background-color: #e1f5fe;
+   border-color: #b3e5fc;
+}
+
+/* Stall, Hazard, and Forwarding Indicators */
+.pipeline-cell.stall {
+   background-color: #ffebee;
+   color: #b71c1c;
+   font-weight: 600;
+   border-color: #ffcdd2;
+}
+
+.pipeline-cell.hazard {
+   border: 2px solid #f44336;
+}
+
+.pipeline-cell.forwarding {
+   border: 2px dashed #2e7d32;
+}
+
+.hazard-icon {
+   position: absolute;
+   top: -8px;
+   right: -8px;
+   width: 20px;
+   height: 20px;
+   background-color: #f44336;
+   color: white;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 12px;
+   font-weight: bold;
+}
+
+.forwarding-arrow {
+   position: absolute;
+   bottom: -8px;
+   left: 50%;
+   transform: translateX(-50%);
+   color: #2e7d32;
+   font-size: 16px;
+}
+
+/* ===== INSTRUCTION GUIDE ===== */
+.instruction-guide {
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 8px;
+   margin-bottom: 20px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.guide-content {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 20px;
+}
+
+.guide-list {
+   list-style-type: none;
+   padding: 0;
+}
+
+.guide-list li {
+   margin-bottom: 12px;
+   position: relative;
+   padding-left: 25px;
+}
+
+.guide-list li:before {
+   content: "•";
+   color: #2962ff;
+   font-weight: bold;
+   position: absolute;
+   left: 0;
+   top: 0;
+   font-size: 18px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+   text-align: center;
+   padding: 15px 0;
+   margin-top: 20px;
+   color: #78909c;
+   font-size: 0.9rem;
+   border-top: 1px solid #eceff1;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+   .container {
+       padding: 15px;
+   }
+   
+   .controls {
+       flex-direction: column;
+   }
+   
+   .pipeline-grid {
+       grid-template-columns: 120px repeat(10, 80px);
+   }
+   
+   .guide-content {
+       grid-template-columns: 1fr;
+   }
+}
+
+@media (max-width: 480px) {
+   .pipeline-container {
+       padding: 10px;
+   }
+   
+   .pipeline-grid {
+       grid-template-columns: 100px repeat(10, 70px);
+       grid-auto-rows: 50px;
+   }
+}

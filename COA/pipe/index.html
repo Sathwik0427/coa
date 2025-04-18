@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive CPU Pipeline Visualization Tool for Computer Architecture Education">
+    <title>CPU Pipeline Visualizer | Educational Tool</title>
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for improved typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CPU Pipeline Visualizer</h1>
+            <p>Visualize instruction execution through a 5-stage pipeline (IF, ID, EX, MEM, WB) to understand hazards, stalls, and forwarding techniques in modern processors.</p>
+        </header>
+
+        <div class="controls">
+            <!-- Instruction Input Panel -->
+            <div class="control-group">
+                <h2>Instructions</h2>
+                <div class="instruction-input">
+                    <textarea id="instruction-textarea" placeholder="Enter instructions (one per line)">add $1, $2, $3
+sub $4, $1, $5
+and $6, $4, $1
+or $7, $1, $6
+lw $8, 4($1)
+sw $7, 8($8)
+beq $1, $7, exit</textarea>
+                </div>
+                <div class="code-example">
+                    <h3>Instruction Format</h3>
+                    <pre>add $1, $2, $3    # $1 = $2 + $3
+sub $4, $1, $5    # $4 = $1 - $5
+lw $2, 4($3)      # $2 = Memory[$3+4]
+sw $1, 0($4)      # Memory[$4+0] = $1
+beq $1, $2, label # if $1 == $2, branch to label</pre>
+                </div>
+                <div class="action-buttons">
+                    <button id="load-btn" class="btn btn-primary"><i class="fas fa-upload"></i> Load Instructions</button>
+                    <button id="reset-btn" class="btn btn-secondary"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+            </div>
+
+            <!-- Pipeline Settings Panel -->
+            <div class="control-group">
+                <h2>Pipeline Configuration</h2>
+                <div class="settings">
+                    <div class="setting-group">
+                        <label for="data-forwarding">Data Forwarding:</label>
+                        <select id="data-forwarding" class="form-select">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                        <div class="setting-help">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Enables direct transfer of values between pipeline stages to resolve data hazards.</span>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="branch-prediction">Branch Prediction:</label>
+                        <select id="branch-prediction" class="form-select">
+                            <option value="always-not-taken">Always Not Taken</option>
+                            <option value="always-taken">Always Taken</option>
+                            <option value="dynamic">Dynamic (1-bit)</option>
+                        </select>
+                        <div class="setting-help">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Determines how the processor predicts branch outcomes to minimize stalls.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cycle-counter">
+                    <span>Current Cycle: </span>
+                    <span id="cycle-count" class="counter-value">0</span>
+                </div>
+                <div class="execution-controls">
+                    <button id="step-btn" class="btn btn-primary"><i class="fas fa-step-forward"></i> Step</button>
+                    <button id="run-btn" class="btn btn-primary"><i class="fas fa-play"></i> Run</button>
+                    <button id="pause-btn" class="btn btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Execution Details Panel -->
+        <div class="explanation-panel">
+            <h2>Execution Details</h2>
+            <div id="explanation-content" class="explanation-content">
+                <p>Load instructions and press Step or Run to begin pipeline visualization.</p>
+            </div>
+        </div>
+
+        <!-- Pipeline Visualization -->
+        <div class="pipeline-container">
+            <div class="pipeline-grid" id="pipeline-grid">
+                <div class="pipeline-header">Instruction</div>
+                <div class="cycle-header">Cycle 1</div>
+                <div class="cycle-header">Cycle 2</div>
+                <div class="cycle-header">Cycle 3</div>
+                <div class="cycle-header">Cycle 4</div>
+                <div class="cycle-header">Cycle 5</div>
+                <div class="cycle-header">Cycle 6</div>
+                <div class="cycle-header">Cycle 7</div>
+                <div class="cycle-header">Cycle 8</div>
+                <div class="cycle-header">Cycle 9</div>
+                <div class="cycle-header">Cycle 10</div>
+                <!-- Grid populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Educational Reference Guide -->
+        <div class="instruction-guide">
+            <h2>Pipeline Concepts Reference</h2>
+            <div class="guide-content">
+                <h3>Pipeline Stages</h3>
+                <ul class="guide-list">
+                    <li><strong>IF (Instruction Fetch):</strong> Retrieves the instruction from memory based on the Program Counter (PC).</li>
+                    <li><strong>ID (Instruction Decode):</strong> Decodes the instruction and reads registers from the register file.</li>
+                    <li><strong>EX (Execute):</strong> Performs arithmetic operations, address calculations, or branch condition evaluations.</li>
+                    <li><strong>MEM (Memory Access):</strong> Accesses data memory for load and store instructions.</li>
+                    <li><strong>WB (Write Back):</strong> Writes results back to the register file.</li>
+                </ul>
+                
+                <h3>Pipeline Hazards</h3>
+                <ul class="guide-list">
+                    <li><strong>Data Hazards:</strong> Occur when an instruction depends on the result of a previous instruction still in the pipeline.</li>
+                    <li><strong>Control Hazards:</strong> Arise when the program flow changes due to branches or jumps, affecting the instruction fetch sequence.</li>
+                    <li><strong>Structural Hazards:</strong> Happen when multiple instructions require the same hardware resource simultaneously.</li>
+                </ul>
+                
+                <h3>Mitigation Techniques</h3>
+                <ul class="guide-list">
+                    <li><strong>Forwarding (Bypassing):</strong> Routes data directly from where it's produced to where it's needed, bypassing the register file.</li>
+                    <li><strong>Stalling:</strong> Temporarily halts parts of the pipeline until a hazard is resolved.</li>
+                    <li><strong>Branch Prediction:</strong> Predicts the outcome of branch instructions to minimize control hazards.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2025 CPU Pipeline Visualizer | Educational Tool</p>
+        </footer>
+    </div>
+
+    <!-- External JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

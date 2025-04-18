@@ -1,0 +1,551 @@
+/* Main Container and Typography */
+body {
+   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+   line-height: 1.6;
+   color: #333;
+   background-color: #f9fafc;
+   margin: 0;
+   padding: 20px;
+}
+
+.simulator-container {
+   background-color: white;
+   border-radius: 8px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+   padding: 25px;
+   margin: 40px auto;
+   max-width: 1200px;
+   overflow: hidden;
+}
+
+.simulator-title {
+   color: #1a237e;
+   text-align: center;
+   margin-bottom: 25px;
+   padding-bottom: 15px;
+   border-bottom: 1px solid #eceff1;
+   font-size: 2.2rem;
+}
+
+/* About CPU Simulator Section */
+.about-cpu-simulator {
+   background-color: #f5f7fa;
+   border-radius: 6px;
+   padding: 20px 25px;
+   margin-bottom: 30px;
+   border-left: 4px solid #2962ff;
+}
+
+.about-cpu-simulator h3 {
+   color: #1a237e;
+   margin-top: 0;
+   margin-bottom: 15px;
+   font-size: 1.5rem;
+}
+
+.about-cpu-simulator h4 {
+   color: #283593;
+   margin-top: 20px;
+   margin-bottom: 10px;
+   font-size: 1.2rem;
+}
+
+.about-cpu-simulator p {
+   margin-bottom: 15px;
+   color: #455a64;
+   line-height: 1.7;
+}
+
+.about-cpu-simulator strong {
+   color: #1a237e;
+   font-weight: 600;
+}
+
+.about-cpu-simulator em {
+   font-style: italic;
+   color: #0039cb;
+}
+
+.about-cpu-simulator ul {
+   padding-left: 25px;
+   margin-bottom: 15px;
+}
+
+.about-cpu-simulator ul li {
+   margin-bottom: 8px;
+   color: #455a64;
+   position: relative;
+}
+
+.about-cpu-simulator ul li::before {
+   content: "•";
+   color: #2962ff;
+   font-weight: bold;
+   display: inline-block;
+   width: 1em;
+   margin-left: -1em;
+}
+
+/* Simulator Grid */
+.simulator-grid {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 25px;
+   margin-bottom: 25px;
+}
+
+/* CPU Components Styling */
+.cpu-components {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.component-box {
+   background-color: #f5f7fa;
+   border-radius: 6px;
+   padding: 15px;
+   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+}
+
+.component-box h4 {
+   color: #1a237e;
+   margin-bottom: 12px;
+   font-size: 1.1rem;
+   text-align: center;
+}
+
+.registers-container {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 10px;
+}
+
+.register {
+   display: flex;
+   justify-content: space-between;
+   background-color: white;
+   padding: 8px 12px;
+   border-radius: 4px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.register-name {
+   font-weight: 600;
+   color: #455a64;
+}
+
+.register-value {
+   font-family: 'Courier New', monospace;
+   padding: 2px 5px;
+   background-color: #e3f2fd;
+   border-radius: 3px;
+   color: #2962ff;
+   min-width: 40px;
+   text-align: center;
+}
+
+.cpu-phase {
+   display: flex;
+   justify-content: space-between;
+   gap: 10px;
+}
+
+.phase {
+   flex: 1;
+   padding: 10px;
+   text-align: center;
+   background-color: #e0e0e0;
+   color: #757575;
+   border-radius: 4px;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+.phase.active {
+   background-color: #2962ff;
+   color: white;
+   box-shadow: 0 3px 8px rgba(41, 98, 255, 0.3);
+}
+
+.control-unit-log {
+   background-color: white;
+   border: 1px solid #e0e0e0;
+   border-radius: 4px;
+   padding: 10px;
+   height: 100px;
+   overflow-y: auto;
+   font-family: 'Courier New', monospace;
+   font-size: 0.9rem;
+   color: #546e7a;
+   line-height: 1.4;
+}
+
+/* Memory Section Styling */
+.memory-section {
+   background-color: #f5f7fa;
+   border-radius: 6px;
+   padding: 15px;
+   height: 100%;
+}
+
+.memory-section h4 {
+   color: #1a237e;
+   margin-bottom: 12px;
+   font-size: 1.1rem;
+   text-align: center;
+}
+
+.memory-cells {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   gap: 8px;
+   height: 350px;
+   overflow-y: auto;
+   padding-right: 5px;
+}
+
+.memory-cell {
+   display: flex;
+   justify-content: space-between;
+   background-color: white;
+   padding: 8px;
+   border-radius: 4px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+   transition: background-color 0.3s ease;
+}
+
+.memory-cell.active {
+   background-color: #e3f2fd;
+   box-shadow: 0 2px 8px rgba(41, 98, 255, 0.2);
+}
+
+.memory-address {
+   font-size: 0.8rem;
+   font-weight: 600;
+   color: #78909c;
+}
+
+.memory-value {
+   font-family: 'Courier New', monospace;
+   font-size: 0.9rem;
+   color: #455a64;
+}
+
+/* Program Control Styling */
+.program-control {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 25px;
+}
+
+.program-input {
+   grid-column: 1 / 2;
+}
+
+.program-input h4 {
+   color: #1a237e;
+   margin-bottom: 12px;
+}
+
+.program-textarea {
+   width: 100%;
+   padding: 12px;
+   border: 1px solid #e0e0e0;
+   border-radius: 4px;
+   font-family: 'Courier New', monospace;
+   font-size: 0.95rem;
+   resize: vertical;
+   line-height: 1.5;
+   color: #37474f;
+   min-height: 150px;
+}
+
+.program-textarea:focus {
+   outline: none;
+   border-color: #2962ff;
+   box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.1);
+}
+
+.instruction-help {
+   margin-top: 15px;
+   background-color: #f5f7fa;
+   border-radius: 4px;
+   padding: 12px;
+}
+
+.instruction-help p {
+   margin-top: 0;
+   margin-bottom: 8px;
+   color: #455a64;
+}
+
+.instruction-help ul {
+   margin: 0;
+   padding-left: 20px;
+}
+
+.instruction-help ul li {
+   margin-bottom: 5px;
+   font-size: 0.9rem;
+   color: #546e7a;
+}
+
+.simulator-controls {
+   grid-column: 2 / 3;
+}
+
+.simulator-controls h4 {
+   color: #1a237e;
+   margin-bottom: 12px;
+}
+
+.control-buttons {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 10px;
+   margin-bottom: 20px;
+}
+
+.control-btn {
+   padding: 10px 15px;
+   background-color: #2962ff;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.control-btn:hover {
+   background-color: #0039cb;
+}
+
+#clear-console {
+   background-color: #f5f5f5;
+   color: #455a64;
+   margin-top: 10px;
+}
+
+#clear-console:hover {
+   background-color: #e0e0e0;
+}
+
+.execution-speed {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   background-color: #f5f7fa;
+   padding: 12px;
+   border-radius: 4px;
+}
+
+.execution-speed label {
+   min-width: 120px;
+   color: #455a64;
+}
+
+#speed-control {
+   flex: 1;
+   accent-color: #2962ff;
+}
+
+#speed-value {
+   min-width: 60px;
+   text-align: center;
+   color: #455a64;
+}
+
+/* Output Console Styling */
+.output-console {
+   grid-column: 1 / 3;
+   margin-top: 15px;
+}
+
+.output-console h4 {
+   color: #1a237e;
+   margin-bottom: 12px;
+}
+
+.console-content {
+   background-color: #263238;
+   color: #eceff1;
+   border-radius: 4px;
+   padding: 12px;
+   height: 120px;
+   overflow-y: auto;
+   font-family: 'Courier New', monospace;
+   font-size: 0.95rem;
+   line-height: 1.5;
+}
+
+/* Animations and transitions */
+@keyframes highlight {
+   0% { background-color: rgba(41, 98, 255, 0.3); }
+   100% { background-color: transparent; }
+}
+
+.memory-cell.accessed {
+   animation: highlight 1s ease-out;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+   body {
+       background-color: #121212;
+       color: #e0e0e0;
+   }
+   
+   .simulator-container {
+       background-color: #1e1e1e;
+       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+   }
+   
+   .simulator-title {
+       color: #82b1ff;
+       border-bottom-color: #37474f;
+   }
+   
+   .about-cpu-simulator {
+       background-color: #252525;
+       border-left-color: #536dfe;
+   }
+   
+   .about-cpu-simulator p, .about-cpu-simulator ul li {
+       color: #b0bec5;
+   }
+   
+   .about-cpu-simulator strong {
+       color: #82b1ff;
+   }
+   
+   .about-cpu-simulator em {
+       color: #536dfe;
+   }
+   
+   .component-box, .memory-section, .instruction-help, .execution-speed {
+       background-color: #2d2d2d;
+   }
+   
+   .component-box h4, .memory-section h4, .program-input h4, 
+   .simulator-controls h4, .output-console h4, .about-cpu-simulator h3, 
+   .about-cpu-simulator h4 {
+       color: #82b1ff;
+   }
+   
+   .register, .memory-cell {
+       background-color: #333;
+       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   }
+   
+   .register-name, .memory-address {
+       color: #b0bec5;
+   }
+   
+   .register-value {
+       background-color: #1a237e;
+       color: #fff;
+   }
+   
+   .memory-value, .instruction-help p, .instruction-help ul li, 
+   #speed-value, .execution-speed label {
+       color: #b0bec5;
+   }
+   
+   .program-textarea {
+       background-color: #333;
+       color: #eceff1;
+       border-color: #444;
+   }
+   
+   .phase {
+       background-color: #444;
+       color: #b0bec5;
+   }
+   
+   .control-unit-log {
+       background-color: #333;
+       border-color: #444;
+       color: #b0bec5;
+   }
+   
+   #clear-console {
+       background-color: #444;
+       color: #b0bec5;
+   }
+   
+   #clear-console:hover {
+       background-color: #555;
+   }
+}
+
+/* Responsive Styling */
+@media (max-width: 992px) {
+   .simulator-grid {
+       grid-template-columns: 1fr;
+   }
+   
+   .program-control {
+       grid-template-columns: 1fr;
+   }
+   
+   .program-input, .simulator-controls {
+       grid-column: 1 / 2;
+   }
+   
+   .output-console {
+       grid-column: 1 / 2;
+   }
+}
+
+@media (max-width: 576px) {
+   .registers-container {
+       grid-template-columns: 1fr;
+   }
+   
+   .memory-cells {
+       grid-template-columns: repeat(2, 1fr);
+   }
+   
+   .control-buttons {
+       grid-template-columns: 1fr;
+   }
+   
+   .simulator-container {
+       padding: 15px;
+       margin: 20px 0;
+   }
+   
+   .about-cpu-simulator {
+       padding: 15px;
+   }
+}
+
+/* Accessibility improvements */
+.control-btn:focus, .program-textarea:focus, #speed-control:focus {
+   outline: 2px solid #2962ff;
+   outline-offset: 2px;
+}
+
+.control-btn:focus-visible {
+   box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.5);
+}
+
+/* Print styles */
+@media print {
+   .simulator-container {
+       box-shadow: none;
+       margin: 0;
+   }
+   
+   .console-content, .control-unit-log, .memory-cells {
+       height: auto;
+       overflow: visible;
+       border: 1px solid #ccc;
+   }
+   
+   .control-buttons, #clear-console {
+       display: none;
+   }
+}

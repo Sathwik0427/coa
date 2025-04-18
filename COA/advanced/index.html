@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Computer Organization & Architecture</title>
+    <style>
+        :root {
+            --primary-color: #2962ff;
+            --primary-dark: #0039cb;
+            --primary-light: #e3f2fd;
+            --secondary-color: #ff5722;
+            --secondary-light: #ffccbc;
+            --text-dark: #263238;
+            --text-light: #455a64;
+            --text-muted: #78909c;
+            --background-light: #f5f7fa;
+            --border-color: #eceff1;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #bbdefb 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-box h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-box p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .two-column {
+            display: flex;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .two-column > div {
+            flex: 1;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .info-list {
+            margin: 20px 0;
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .info-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .info-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background-color: #fff3e0;
+            border-left: 4px solid var(--warning-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning-box h4 {
+            color: var(--warning-color);
+            margin-bottom: 10px;
+        }
+
+        .note-box {
+            background-color: var(--secondary-light);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .note-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        .tabs {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .interactive-demo {
+            background-color: var(--background-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .interactive-demo h4 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .pipeline-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pipeline-stages {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+
+        .pipeline-stage {
+            min-width: 120px;
+            padding: 15px;
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pipeline-stage::after {
+            content: '→';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
+        .pipeline-stage:last-child::after {
+            display: none;
+        }
+
+        .pipeline-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .pipeline-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .pipeline-table table {
+            min-width: 700px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            background-color: #f5f5f5;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        .memory-hierarchy {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 30px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .memory-level {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .memory-level:nth-child(1) {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .memory-level:nth-child(2) {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .memory-level:nth-child(3) {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .memory-level:nth-child(4) {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff8e1;
+            border-color: #ffc107;
+        }
+
+        .memory-level:nth-child(5) {
+            width: 90%;
+            margin: 0 auto;
+            background-color: #ffebee;
+            border-color: #f44336;
+        }
+
+        .memory-level h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .memory-level p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #b0bec5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #78909c;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .container {
+                width: 95%;
+            }
+            
+            .two-column {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                padding: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+                transition: left 0.3s ease;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            nav ul li {
+                margin: 0;
+                margin-bottom: 15px;
+            }
+            
+            .feature-cards {
+                flex-direction: column;
+            }
+            
+            .memory-level {
+                width: 100% !important;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">⚙️</div>
+                <div>Advanced<span>COA</span></div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-toggle">☰</button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#pipelining">Pipelining</a></li>
+                    <li><a href="#risc-cisc">RISC vs CISC</a></li>
+                    <li><a href="#memory-management">Memory Management</a></li>
+                    <li><a href="#optimization">Performance Optimization</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Advanced Computer Organization & Architecture</h1>
+            <p>Master pipelining, RISC vs CISC architectures, memory management, and performance optimization techniques</p>
+            <a href="#pipelining" class="btn">Start Learning</a>
+        </div>
+    </section>
+
+    <!-- Pipelining Section -->
+    <section id="pipelining" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pipelining Techniques</h2>
+                <p>Understanding how modern processors execute multiple instructions simultaneously</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Introduction to Pipelining</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <p>Pipelining is a technique used in processor design that allows multiple instructions to be processed simultaneously at different stages. This approach significantly improves processor throughput without requiring a proportional increase in resources.</p>
+                        
+                        <p>The concept is similar to an assembly line in manufacturing, where a complex process is broken down into simpler stages that can operate concurrently. Each stage performs a specific part of the instruction execution process.</p>
+                        
+                        <div class="info-box">
+                            <h4>Key Benefits of Pipelining</h4>
+                            <ul>
+                                <li>Increased throughput (instructions per second)</li>
+                                <li>Better utilization of processor resources</li>
+                                <li>Higher clock frequencies possible</li>
+                                <li>Improved performance without proportional increase in hardware</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Pipelining+Concept" alt="Pipelining Concept">
+                        <p class="image-caption">Visualization of instruction pipelining in modern processors</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Classical 5-Stage Pipeline</h3>
+                <p>The most common implementation of pipelining is the five-stage pipeline found in many RISC processors:</p>
+                
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage">
+                        <h4>IF</h4>
+                        <p>Instruction Fetch</p>
+                    </div>
+                    <div class="pipeline-stage">
+                        <h4>ID</h4>
+                        <p>Instruction Decode</p>
+                    </div>
+                    <div class="pipeline-stage">
+                        <h4>EX</h4>
+                        <p>Execute</p>
+                    </div>
+                    <div class="pipeline-stage">
+                        <h4>MEM</h4>
+                        <p>Memory Access</p>
+                    </div>
+                    <div class="pipeline-stage">
+                        <h4>WB</h4>
+                        <p>Write Back</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h4>Pipeline Stage Description:</h4>
+                        <ul class="info-list">
+                            <li><strong>Instruction Fetch (IF):</strong> Fetches the next instruction from memory using the address in the PC (Program Counter)</li>
+                            <li><strong>Instruction Decode (ID):</strong> Decodes the instruction and reads register operands</li>
+                            <li><strong>Execute (EX):</strong> Performs the operation or calculates the memory address</li>
+                            <li><strong>Memory Access (MEM):</strong> Reads/writes data from/to memory if required</li>
+                            <li><strong>Write Back (WB):</strong> Writes the result back to the register file</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="note-box">
+                            <h4>Pipeline Performance</h4>
+                            <p>In an ideal scenario with a 5-stage pipeline, once the pipeline is full, the processor can complete one instruction every clock cycle. This means the theoretical speedup is 5x compared to non-pipelined execution.</p>
+                            <p>However, real-world speedup is typically less due to pipeline hazards, branch mispredictions, and other factors.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Pipeline Hazards</h3>
+                <p>Pipeline hazards are situations that prevent the next instruction in the instruction stream from executing during its designated clock cycle. There are three types of hazards:</p>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'data-hazards')">Data Hazards</button>
+                        <button class="tab-button" onclick="openTab(event, 'control-hazards')">Control Hazards</button>
+                        <button class="tab-button" onclick="openTab(event, 'structural-hazards')">Structural Hazards</button>
+                    </div>
+                    
+                    <div id="data-hazards" class="tab-content active">
+                        <h4>Data Hazards</h4>
+                        <p>Data hazards occur when instructions that are overlapped in execution need the same operands, causing potential read-after-write (RAW), write-after-read (WAR), or write-after-write (WAW) conflicts.</p>
+                        
+                        <div class="code-block">
+# Example of a RAW (Read After Write) hazard:
+ADD R1, R2, R3    # R1 = R2 + R3
+SUB R4, R1, R5    # R4 = R1 - R5  (Depends on previous instruction's R1 result)
+                        </div>
+                        
+                        <h4>Solutions for Data Hazards:</h4>
+                        <ul class="info-list">
+                            <li><strong>Forwarding/Bypassing:</strong> Directly routing the result from one pipeline stage to another without waiting for it to be written to registers</li>
+                            <li><strong>Pipeline Stalling:</strong> Introduce pipeline bubbles (no-ops) to delay execution of dependent instructions</li>
+                            <li><strong>Instruction Scheduling:</strong> Compiler rearranges instructions to minimize hazards</li>
+                        </ul>
+                        
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/700x300?text=Data+Hazard+and+Forwarding" alt="Data Hazard and Forwarding">
+                            <p class="image-caption">Data hazard resolution through forwarding paths</p>
+                        </div>
+                    </div>
+                    
+                    <div id="control-hazards" class="tab-content">
+                        <h4>Control Hazards</h4>
+                        <p>Control hazards occur due to branches and jumps that change the control flow, potentially making the pre-fetched instructions invalid.</p>
+                        
+                        <div class="code-block">
+# Example of a Control Hazard:
+CMP R1, R2        # Compare R1 and R2
+BEQ label         # Branch if equal
+ADD R3, R4, R5    # May be executed unnecessarily if branch is taken
+SUB R6, R7, R8    # May be executed unnecessarily if branch is taken
+label:
+MOV R9, R10       # Target of branch
+                        </div>
+                        
+                        <h4>Solutions for Control Hazards:</h4>
+                        <ul class="info-list">
+                            <li><strong>Branch Prediction:</strong> Predicting whether branches will be taken or not</li>
+                            <li><strong>Speculative Execution:</strong> Execute instructions along the predicted path</li>
+                            <li><strong>Delayed Branches:</strong> Instructions following the branch are always executed (branch delay slots)</li>
+                            <li><strong>Branch Target Buffers:</strong> Cache the target and prediction information of branches</li>
+                        </ul>
+                        
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/700x300?text=Branch+Prediction+Mechanisms" alt="Branch Prediction Mechanisms">
+                            <p class="image-caption">Modern branch prediction techniques</p>
+                        </div>
+                    </div>
+                    
+                    <div id="structural-hazards" class="tab-content">
+                        <h4>Structural Hazards</h4>
+                        <p>Structural hazards occur when hardware resources cannot support all possible combinations of instructions in simultaneous overlapped execution.</p>
+                        
+                        <p>For example, if a processor has only one memory port, but both the IF and MEM stages need to access memory simultaneously, a structural hazard occurs.</p>
+                        
+                        <h4>Solutions for Structural Hazards:</h4>
+                        <ul class="info-list">
+                            <li><strong>Resource Duplication:</strong> Add more hardware resources (e.g., separate instruction and data caches)</li>
+                            <li><strong>Pipeline Stalling:</strong> Delay execution when resource conflicts arise</li>
+                            <li><strong>Resource Scheduling:</strong> Prioritize resource access between competing stages</li>
+                        </ul>
+                        
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/700x300?text=Structural+Hazard+Example" alt="Structural Hazard Example">
+                            <p class="image-caption">Example of a structural hazard with shared memory port</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Advanced Pipelining Techniques</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Superpipelining</h4>
+                        <p>Superpipelining involves breaking down the standard pipeline stages into smaller sub-stages, allowing for higher clock frequencies and more concurrent instructions in the pipeline.</p>
+                        <p>For example, a 5-stage pipeline might be divided into 10 stages, potentially doubling throughput at the cost of increased hazard complexity.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Superscalar Execution</h4>
+                        <p>Superscalar architectures can initiate multiple instructions in a single clock cycle by having multiple execution units and dispatching multiple instructions simultaneously.</p>
+                        <p>This technique requires complex instruction issue logic to detect dependencies and hazards between parallel instructions.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Out-of-Order Execution</h4>
+                        <p>Out-of-order execution allows the processor to execute instructions in an order different from the original program order, based on resource availability and data dependencies.</p>
+                        <p>This technique helps to minimize stalls by executing instructions that are ready while waiting for others that are blocked.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Register Renaming</h4>
+                        <p>Register renaming eliminates name dependencies (WAR and WAW hazards) by mapping architectural registers to a larger set of physical registers.</p>
+                        <p>This technique allows more instructions to execute in parallel by removing false dependencies.</p>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Pipelining Challenges in Modern Processors</h4>
+                    <p>Modern processors with deep pipelines (15-20+ stages) face significant challenges:</p>
+                    <ul>
+                        <li>Branch misprediction penalties become more severe</li>
+                        <li>Power consumption increases due to more pipeline registers</li>
+                        <li>Diminishing returns in performance as pipeline depths increase</li>
+                        <li>Increased complexity in hazard detection and resolution</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>Pipeline Execution Visualization</h4>
+                    <div class="pipeline-demo">
+                        <div class="pipeline-controls">
+                            <button id="pipeline-start" class="btn">Start Demo</button>
+                            <button id="pipeline-step" class="btn btn-outline">Step Forward</button>
+                            <button id="pipeline-reset" class="btn btn-outline">Reset</button>
+                        </div>
+                        
+                        <div class="pipeline-table">
+                            <table id="pipeline-execution-table">
+                                <tr>
+                                    <th>Instruction</th>
+                                    <th>Cycle 1</th>
+                                    <th>Cycle 2</th>
+                                    <th>Cycle 3</th>
+                                    <th>Cycle 4</th>
+                                    <th>Cycle 5</th>
+                                    <th>Cycle 6</th>
+                                    <th>Cycle 7</th>
+                                    <th>Cycle 8</th>
+                                    <th>Cycle 9</th>
+                                </tr>
+                                <tr>
+                                    <td>ADD R1, R2, R3</td>
+                                    <td>IF</td>
+                                    <td>ID</td>
+                                    <td>EX</td>
+                                    <td>MEM</td>
+                                    <td>WB</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>SUB R4, R1, R5</td>
+                                    <td></td>
+                                    <td>IF</td>
+                                    <td>ID</td>
+                                    <td>STALL</td>
+                                    <td>EX</td>
+                                    <td>MEM</td>
+                                    <td>WB</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>AND R6, R4, R7</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>IF</td>
+                                    <td>ID</td>
+                                    <td>STALL</td>
+                                    <td>EX</td>
+                                    <td>MEM</td>
+                                    <td>WB</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>OR R8, R6, R9</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>IF</td>
+                                    <td>ID</td>
+                                    <td>STALL</td>
+                                    <td>EX</td>
+                                    <td>MEM</td>
+                                    <td>WB</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div id="pipeline-explanation">
+                            <p><strong>Explanation:</strong> This table shows a classic data hazard scenario. The SUB instruction needs the result of ADD's R1, causing a stall. Similarly, AND depends on SUB's R4 result, and OR depends on AND's R6 result.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RISC vs CISC Section -->
+    <section id="risc-cisc" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>RISC vs CISC Design</h2>
+                <p>Understanding the fundamental differences between these processor architecture paradigms</p>
+            </div>
+
+            <div class="content-box">
+                <h3>History and Evolution</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <p>The evolution of processor architecture has been marked by two major design philosophies:</p>
+                        
+                        <ul class="info-list">
+                            <li><strong>CISC (Complex Instruction Set Computer):</strong> Dominated early computer design, focusing on complex, multi-cycle instructions that could perform multiple operations with a single instruction. Examples include x86 and x86-64 architectures.</li>
+                            <li><strong>RISC (Reduced Instruction Set Computer):</strong> Emerged in the 1980s as a response to CISC complexity, focusing on simpler, single-cycle instructions optimized for pipelining. Examples include ARM, MIPS, and RISC-V.</li>
+                        </ul>
+                        
+                        <p>Interestingly, modern processors often blend both approaches, with CISC processors implementing RISC-like cores internally and RISC processors adopting some CISC features.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=RISC+vs+CISC+Evolution" alt="RISC vs CISC Evolution">
+                        <p class="image-caption">Historical evolution of RISC and CISC architectures</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Fundamental Differences</h3>
+                
+                <div class="comparison-table">
+                    <table>
+                        <tr>
+                            <th>Characteristic</th>
+                            <th>CISC (Complex Instruction Set Computer)</th>
+                            <th>RISC (Reduced Instruction Set Computer)</th>
+                        </tr>
+                        <tr>
+                            <td>Philosophy</td>
+                            <td>Emphasis on hardware complexity to simplify compiler design</td>
+                            <td>Emphasis on compiler optimization to work with simpler hardware</td>
+                        </tr>
+                        <tr>
+                            <td>Instruction Set</td>
+                            <td>Large number (100s to 1000s) of complex instructions</td>
+                            <td>Small number (typically < 100) of simple instructions</td>
+                        </tr>
+                        <tr>
+                            <td>Instruction Size</td>
+                            <td>Variable length instructions (1-15+ bytes)</td>
+                            <td>Fixed length instructions (typically 4 bytes)</td>
+                        </tr>
+                        <tr>
+                            <td>Memory Access</td>
+                            <td>Memory-to-memory architecture with many addressing modes</td>
+                            <td>Load-store architecture where only specific instructions access memory</td>
+                        </tr>
+                        <tr>
+                            <td>Execution</td>
+                            <td>Multi-cycle execution per instruction</td>
+                            <td>Single-cycle execution per instruction (ideally)</td>
+                        </tr>
+                        <tr>
+                            <td>Registers</td>
+                            <td>Fewer general-purpose registers</td>
+                            <td>More general-purpose registers</td>
+                        </tr>
+                        <tr>
+                            <td>Pipelining</td>
+                            <td>More challenging due to variable instruction length and complexity</td>
+                            <td>Optimized for pipelining with consistent instruction timing</td>
+                        </tr>
+                        <tr>
+                            <td>Microprogramming</td>
+                            <td>Often relies on microcode to handle complex instructions</td>
+                            <td>Typically uses hardwired control</td>
+                        </tr>
+                        <tr>
+                            <td>Common Examples</td>
+                            <td>x86, x86-64, VAX, IBM System/370</td>
+                            <td>ARM, MIPS, RISC-V, SPARC, PowerPC</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>CISC vs RISC: An Illustrative Example</h4>
+                    <p>Consider a simple operation: Add the contents of memory location A to memory location B and store the result in memory location C.</p>
+                    
+                    <p><strong>CISC Approach:</strong></p>
+                    <div class="code-block">ADD C, A, B    // Single instruction: C = A + B (memory-to-memory)</div>
+                    
+                    <p><strong>RISC Approach:</strong></p>
+                    <div class="code-block">LOAD R1, A     // Load from memory location A into register R1
+LOAD R2, B     // Load from memory location B into register R2
+ADD R3, R1, R2 // Add registers R1 and R2, store in R3
+STORE R3, C    // Store register R3 to memory location C</div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Performance Considerations</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>CISC Advantages:</h4>
+                        <ul class="info-list">
+                            <li><strong>Code Density:</strong> More operations per instruction means smaller code size</li>
+                            <li><strong>Backward Compatibility:</strong> Easier to maintain compatibility with older software</li>
+                            <li><strong>Complex Operations:</strong> Specialized instructions for string manipulation, crypto, etc.</li>
+                            <li><strong>Memory Efficiency:</strong> Fewer instruction fetches from memory</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>RISC Advantages:</h4>
+                        <ul class="info-list">
+                            <li><strong>Pipeline Efficiency:</strong> Simplified instructions are easier to pipeline</li>
+                            <li><strong>Clock Speed:</strong> Simpler logic allows for higher clock frequencies</li>
+                            <li><strong>Power Efficiency:</strong> Simpler circuits consume less power</li>
+                            <li><strong>Compiler Optimization:</strong> Consistent instruction timing helps compiler optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <h4>The Convergence of RISC and CISC</h4>
+                    <p>Modern processors have increasingly borrowed features from both paradigms:</p>
+                    <ul>
+                        <li>CISC processors like x86 translate complex instructions into RISC-like micro-operations for internal execution</li>
+                        <li>RISC processors have added more complex instructions (like SIMD) for performance in specific domains</li>
+                        <li>Both architectures now employ advanced techniques like out-of-order execution, branch prediction, and speculative execution</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Case Studies: Modern Implementations</h3>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'x86-case')">x86-64 (CISC)</button>
+                        <button class="tab-button" onclick="openTab(event, 'arm-case')">ARM (RISC)</button>
+                        <button class="tab-button" onclick="openTab(event, 'riscv-case')">RISC-V (Pure RISC)</button>
+                    </div>
+                    
+                    <div id="x86-case" class="tab-content active">
+                        <h4>x86-64 Architecture (CISC)</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>Intel and AMD x86-64 processors represent modern CISC designs that have been optimized over decades:</p>
+                                
+                                <ul class="info-list">
+                                    <li><strong>CISC Frontend, RISC Backend:</strong> Modern x86 processors decode complex CISC instructions into simpler RISC-like micro-operations (μops) for execution</li>
+                                    <li><strong>Micro-operation Cache:</strong> Stores decoded μops to bypass the complex decoding stage on subsequent executions</li>
+                                    <li><strong>Advanced Execution:</strong> Out-of-order execution, speculative execution, and complex branch prediction</li>
+                                    <li><strong>Specialized Extensions:</strong> SSE, AVX, AVX-512 for SIMD operations, AES-NI for cryptography</li>
+                                </ul>
+                            </div>
+                            <div class="image-container">
+                                <img src="https://via.placeholder.com/500x300?text=Modern+x86+Architecture" alt="Modern x86 Architecture">
+                                <p class="image-caption">Simplified diagram of modern x86 processor architecture</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>x86 Performance Optimizations</h4>
+                            <p>Despite the complexity of the x86 instruction set, modern implementations achieve high performance through:</p>
+                            <ul>
+                                <li>Complex decoders that translate CISC instructions to RISC-like micro-operations</li>
+                                <li>Aggressive out-of-order execution with large reorder buffers</li>
+                                <li>Advanced branch prediction and speculative execution</li>
+                                <li>High-bandwidth memory subsystems with multiple levels of cache</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="arm-case" class="tab-content">
+                        <h4>ARM Architecture (RISC)</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>ARM processors represent the most commercially successful RISC implementation, dominating mobile and increasingly entering the server and desktop markets:</p>
+                                
+                                <ul class="info-list">
+                                    <li><strong>Energy Efficiency:</strong> RISC principles help ARM achieve excellent performance per watt</li>
+                                    <li><strong>Scalability:</strong> From tiny microcontrollers to high-performance server processors</li>
+                                    <li><strong>Extensions:</strong> NEON for SIMD, TrustZone for security, SVE for vector processing</li>
+                                    <li><strong>Big.LITTLE Architecture:</strong> Heterogeneous computing with performance and efficiency cores</li>
+                                </ul>
+                            </div>
+                            <div class="image-container">
+                                <img src="https://via.placeholder.com/500x300?text=ARM+Architecture" alt="ARM Architecture">
+                                <p class="image-caption">ARM processor architecture with performance and efficiency cores</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>ARM's RISC Evolution</h4>
+                            <p>While maintaining RISC principles, ARM has evolved:</p>
+                            <ul>
+                                <li>Added CISC-like features such as complex addressing modes and SIMD instructions</li>
+                                <li>Implemented advanced speculation and out-of-order execution in high-end designs</li>
+                                <li>Supported multiple instruction sets (A32/T32/A64) for different performance needs</li>
+                                <li>Custom instruction extensions for licensees (Apple, Qualcomm, Samsung, etc.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="riscv-case" class="tab-content">
+                        <h4>RISC-V Architecture (Pure RISC)</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>RISC-V represents a modern, open-source, clean-slate RISC design that stays true to original RISC principles:</p>
+                                
+                                <ul class="info-list">
+                                    <li><strong>Modularity:</strong> Base instruction set (RV32I/RV64I) with optional extensions (M, A, F, D, etc.)</li>
+                                    <li><strong>Simplicity:</strong> Clean, minimal instruction set without legacy constraints</li>
+                                    <li><strong>Extensibility:</strong> Standardized process for custom extensions</li>
+                                    <li><strong>Open Standard:</strong> Free to implement without licensing fees</li>
+                                </ul>
+                            </div>
+                            <div class="image-container">
+                                <img src="https://via.placeholder.com/500x300?text=RISC-V+Architecture" alt="RISC-V Architecture">
+                                <p class="image-caption">RISC-V modular instruction set architecture</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>RISC-V Advantages in Modern Context</h4>
+                            <p>RISC-V demonstrates the enduring value of RISC principles:</p>
+                            <ul>
+                                <li>Simplified verification and implementation</li>
+                                <li>Lower power consumption for embedded applications</li>
+                                <li>Customizability for domain-specific processors</li>
+                                <li>Freedom from proprietary instruction set licensing</li>
+                                <li>Growing ecosystem of software and hardware implementations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Management Section -->
+    <section id="memory-management" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Memory Management</h2>
+                <p>Understanding advanced memory hierarchies and management techniques</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Modern Memory Hierarchy</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <p>Modern computer systems employ a complex memory hierarchy to balance speed, capacity, and cost. This hierarchy exploits the principle of locality - the tendency of programs to access data and instructions that are close to those they have recently used.</p>
+                        
+                        <div class="info-box">
+                            <h4>Principles of Memory Hierarchy</h4>
+                            <ul>
+                                <li><strong>Temporal Locality:</strong> Recently accessed items are likely to be accessed again soon</li>
+                                <li><strong>Spatial Locality:</strong> Items near recently accessed items are likely to be accessed soon</li>
+                                <li><strong>Capacity vs Speed:</strong> Faster memory technologies have lower capacities and higher costs</li>
+                                <li><strong>Memory Wall:</strong> CPU speeds have increased faster than memory speeds, making memory hierarchy optimization critical</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="memory-hierarchy">
+                            <div class="memory-level">
+                                <h4>Registers</h4>
+                                <p>~1KB, ~0.5-1ns access</p>
+                            </div>
+                            <div class="memory-level">
+                                <h4>L1 Cache</h4>
+                                <p>~64KB, ~1-3ns access</p>
+                            </div>
+                            <div class="memory-level">
+                                <h4>L2/L3 Cache</h4>
+                                <p>~256KB-32MB, ~10-50ns access</p>
+                            </div>
+                            <div class="memory-level">
+                                <h4>Main Memory (DRAM)</h4>
+                                <p>~8-256GB, ~100ns access</p>
+                            </div>
+                            <div class="memory-level">
+                                <h4>Secondary Storage (SSD/HDD)</h4>
+                                <p>~TB, μs-ms access</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Advanced Cache Architectures</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <p>Cache memory bridges the performance gap between fast processors and slower main memory. Modern processors employ sophisticated cache designs to maximize hit rates and minimize access times.</p>
+                        
+                        <h4>Multi-level Cache Hierarchies</h4>
+                        <ul class="info-list">
+                            <li><strong>L1 Cache:</strong> Split into instruction (L1i) and data (L1d) caches, typically 32-64KB each, private to each core</li>
+                            <li><strong>L2 Cache:</strong> Unified instruction and data, typically 256KB-1MB, may be private to each core or shared</li>
+                            <li><strong>L3 Cache (LLC):</strong> Shared among all cores, typically 8-32MB, acts as last defense before main memory access</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Multi-Level+Cache+Hierarchy" alt="Multi-Level Cache Hierarchy">
+                        <p class="image-caption">Modern multi-level cache organization in a quad-core processor</p>
+                    </div>
+                </div>
+                
+                <h4>Advanced Cache Optimization Techniques</h4>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h4>Non-Blocking Caches</h4>
+                        <p>Allow multiple outstanding cache misses, continuing execution with independent instructions while waiting for data.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h4>Cache Coherence Protocols</h4>
+                        <p>MESI, MOESI, or MESIF protocols ensure consistent views of memory across multiple caches in multicore systems.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Victim Caches</h4>
+                        <p>Small fully-associative caches that store recently evicted cache lines to reduce miss penalties from conflict misses.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4>Adaptive Replacement Policies</h4>
+                        <p>Dynamic adjustment of replacement strategies based on program behavior (beyond simple LRU).</p>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Cache Side-Channel Vulnerabilities</h4>
+                    <p>Modern cache designs can create security vulnerabilities through side-channel attacks:</p>
+                    <ul>
+                        <li><strong>Meltdown and Spectre:</strong> Exploiting speculative execution via cache timing</li>
+                        <li><strong>Flush+Reload:</strong> Monitoring cache accesses across security boundaries</li>
+                        <li><strong>Prime+Probe:</strong> Detecting cache evictions without shared memory</li>
+                        <li><strong>Cache Bank Conflicts:</strong> Revealing access patterns through shared resources</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Virtual Memory Implementation</h3>
+                
+                <p>Virtual memory creates an abstraction that provides each process with the illusion of a large, contiguous address space, regardless of physical memory constraints and fragmentation.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>Key Components of Virtual Memory:</h4>
+                        <ul class="info-list">
+                            <li><strong>Address Translation:</strong> Converting virtual addresses to physical addresses</li>
+                            <li><strong>Page Tables:</strong> Data structures that map virtual pages to physical frames</li>
+                            <li><strong>Translation Lookaside Buffer (TLB):</strong> Cache for recent address translations</li>
+                            <li><strong>Page Fault Handler:</strong> Software routine to handle missing pages</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Virtual+Memory+System" alt="Virtual Memory System">
+                        <p class="image-caption">Virtual memory address translation process</p>
+                    </div>
+                </div>
+                
+                <h4>Advanced Virtual Memory Features</h4>
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'huge-pages')">Huge Pages</button>
+                        <button class="tab-button" onclick="openTab(event, 'numa')">NUMA Awareness</button>
+                        <button class="tab-button" onclick="openTab(event, 'page-coloring')">Page Coloring</button>
+                    </div>
+                    
+                    <div id="huge-pages" class="tab-content active">
+                        <h4>Huge Pages / Superpages</h4>
+                        <p>Huge pages are memory pages that are significantly larger than the standard 4KB page size (typically 2MB or 1GB).</p>
+                        
+                        <h5>Benefits:</h5>
+                        <ul class="info-list">
+                            <li>Reduced TLB pressure - fewer entries needed to cover the same amount of memory</li>
+                            <li>Lower page table overhead - fewer page table entries</li>
+                            <li>Potential performance gains of 5-10% for memory-intensive applications</li>
+                        </ul>
+                        
+                        <h5>Implementation:</h5>
+                        <ul class="info-list">
+                            <li>x86-64: Supports 4KB, 2MB (transparent huge pages), and 1GB pages</li>
+                            <li>ARM: Supports 4KB, 16KB, 64KB base pages and up to 1GB huge pages</li>
+                            <li>May require explicit configuration or API usage in applications</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="numa" class="tab-content">
+                        <h4>NUMA (Non-Uniform Memory Access) Awareness</h4>
+                        <p>NUMA systems have memory access times that depend on the memory location relative to the processor, creating "local" and "remote" memory with different access latencies.</p>
+                        
+                        <h5>Memory Management Challenges:</h5>
+                        <ul class="info-list">
+                            <li>Memory allocation should prefer local memory nodes for optimal performance</li>
+                            <li>Page migration may be needed to move frequently accessed pages closer to the using CPU</li>
+                            <li>Thread scheduling should consider memory locality</li>
+                        </ul>
+                        
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/700x300?text=NUMA+Architecture" alt="NUMA Architecture">
+                            <p class="image-caption">NUMA architecture with multiple memory controllers and varying access latencies</p>
+                        </div>
+                    </div>
+                    
+                    <div id="page-coloring" class="tab-content">
+                        <h4>Page Coloring</h4>
+                        <p>Page coloring is a technique to control how virtual pages map to cache lines, reducing conflicts in physically-indexed caches.</p>
+                        
+                        <h5>How it Works:</h5>
+                        <ul class="info-list">
+                            <li>Physical memory is divided into different "colors" based on how addresses map to cache sets</li>
+                            <li>OS allocates pages of appropriate colors to different processes or threads</li>
+                            <li>Reduces cache conflicts between unrelated processes</li>
+                        </ul>
+                        
+                        <h5>Benefits:</h5>
+                        <ul class="info-list">
+                            <li>Improved cache utilization and reduced thrashing</li>
+                            <li>Isolation between critical workloads</li>
+                            <li>Potential performance improvements of 5-15% for cache-sensitive workloads</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Memory Types and Technologies</h3>
+                
+                <div class="comparison-table">
+                    <table>
+                        <tr>
+                            <th>Technology</th>
+                            <th>Characteristics</th>
+                            <th>Usage</th>
+                            <th>Trends</th>
+                        </tr>
+                        <tr>
+                            <td>SRAM (Static RAM)</td>
+                            <td>Fast (0.5-2.5ns), high power, expensive, 6T cell design</td>
+                            <td>CPU caches (L1/L2/L3)</td>
+                            <td>Increasing density, dual/multi-ported designs</td>
+                        </tr>
+                        <tr>
+                            <td>DRAM (Dynamic RAM)</td>
+                            <td>Moderate speed (50-100ns), refreshing needed, 1T cell design</td>
+                            <td>Main memory</td>
+                            <td>DDR5, increasing bandwidth, stacked designs</td>
+                        </tr>
+                        <tr>
+                            <td>HBM (High Bandwidth Memory)</td>
+                            <td>Stacked DRAM dies, very high bandwidth, integrated with processor</td>
+                            <td>GPUs, specialized processors</td>
+                            <td>HBM3, increasing adoption in high-performance computing</td>
+                        </tr>
+                        <tr>
+                            <td>NVDIMM (Non-Volatile DIMM)</td>
+                            <td>Persistent memory with DRAM-like access patterns</td>
+                            <td>Persistent tier between DRAM and storage</td>
+                            <td>Growing adoption for databases and fault tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>3D XPoint (Optane)</td>
+                            <td>Non-volatile, faster than NAND, slower than DRAM</td>
+                            <td>Storage-class memory</td>
+                            <td>Discontinued by Intel, alternative technologies emerging</td>
+                        </tr>
+                        <tr>
+                            <td>NAND Flash</td>
+                            <td>Non-volatile, block-oriented, limited write cycles</td>
+                            <td>SSDs, storage devices</td>
+                            <td>QLC, PLC technologies, increasing density</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Future Memory Technologies</h4>
+                    <p>Several emerging memory technologies aim to bridge the performance-capacity gap:</p>
+                    <ul>
+                        <li><strong>ReRAM (Resistive RAM):</strong> Uses resistance changes in materials to store data</li>
+                        <li><strong>PCM (Phase Change Memory):</strong> Exploits different electrical properties of crystalline and amorphous states</li>
+                        <li><strong>MRAM (Magnetic RAM):</strong> Stores data in magnetic elements for non-volatility with SRAM-like performance</li>
+                        <li><strong>FeRAM (Ferroelectric RAM):</strong> Uses ferroelectric effect for non-volatile storage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Optimization Section -->
+    <section id="optimization" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Performance Optimization</h2>
+                <p>Understanding modern techniques to maximize processor and memory performance</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Instruction-Level Parallelism (ILP)</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <p>Instruction-Level Parallelism refers to executing multiple instructions in parallel within a single processor. Modern processors employ various techniques to extract ILP from sequential instruction streams.</p>
+                        
+                        <div class="info-box">
+                            <h4>Key ILP Techniques</h4>
+                            <ul>
+                                <li><strong>Pipelining:</strong> Breaking instruction execution into stages that can operate concurrently</li>
+                                <li><strong>Superscalar Execution:</strong> Multiple execution units processing several instructions per cycle</li>
+                                <li><strong>Out-of-Order Execution:</strong> Executing instructions based on data availability rather than program order</li>
+                                <li><strong>Speculative Execution:</strong> Executing instructions before knowing if they'll be needed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Instruction+Level+Parallelism" alt="Instruction Level Parallelism">
+                        <p class="image-caption">Modern processor extracting ILP through multiple techniques</p>
+                    </div>
+                </div>
+                
+                <h4>Hardware vs. Software ILP</h4>
+                <div class="two-column">
+                    <div>
+                        <h5>Hardware-Based ILP:</h5>
+                        <ul class="info-list">
+                            <li><strong>Dynamic Branch Prediction:</strong> Predict branch outcomes to prevent pipeline stalls</li>
+                            <li><strong>Register Renaming:</strong> Eliminate false dependencies by mapping architectural registers to larger physical register sets</li>
+                            <li><strong>Memory Disambiguation:</strong> Speculative load execution before older stores with unknown addresses</li>
+                            <li><strong>Reorder Buffer:</strong> Track instructions for correct in-order completion despite out-of-order execution</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Software-Based ILP:</h5>
+                        <ul class="info-list">
+                            <li><strong>Loop Unrolling:</strong> Reduce loop overhead and expose more parallelism</li>
+                            <li><strong>Function Inlining:</strong> Eliminate call/return overhead and increase optimization scope</li>
+                            <li><strong>Software Pipelining:</strong> Reorganize loops to maximize parallel execution</li>
+                            <li><strong>Trace Scheduling:</strong> Optimize the most frequently executed paths</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <h4>Limits of ILP</h4>
+                    <p>Research has shown practical limits to the amount of ILP that can be extracted from typical programs:</p>
+                    <ul>
+                        <li>Control dependencies (branches) limit instruction-level parallelism</li>
+                        <li>True data dependencies create fundamental sequential bottlenecks</li>
+                        <li>Most applications have between 2-5 instructions of actual parallelism per cycle</li>
+                        <li>Diminishing returns for increasingly complex ILP extraction hardware</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Data-Level Parallelism (DLP)</h3>
+                
+                <p>Data-Level Parallelism refers to performing the same operation on multiple data elements simultaneously. This approach is crucial for compute-intensive applications like graphics, scientific computing, and machine learning.</p>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'simd')">SIMD Extensions</button>
+                        <button class="tab-button" onclick="openTab(event, 'gpu')">GPU Computing</button>
+                        <button class="tab-button" onclick="openTab(event, 'vector')">Vector Processing</button>
+                    </div>
+                    
+                    <div id="simd" class="tab-content active">
+                        <h4>SIMD (Single Instruction, Multiple Data) Extensions</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>SIMD instructions perform the same operation on multiple data elements packed into wide registers, offering significant performance improvements for data-parallel operations.</p>
+                                
+                                <h5>Key SIMD Instruction Sets:</h5>
+                                <ul class="info-list">
+                                    <li><strong>x86:</strong> MMX, SSE, AVX, AVX-512 (128/256/512-bit vectors)</li>
+                                    <li><strong>ARM:</strong> NEON, SVE (Scalable Vector Extension)</li>
+                                    <li><strong>RISC-V:</strong> V-extension (scalable vectors)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="code-block">
+// Scalar vs SIMD Example (pseudo-code)
+
+// Scalar implementation (4 operations)
+for (int i = 0; i < 4; i++) {
+    result[i] = a[i] + b[i];
+}
+
+// SIMD implementation (1 operation)
+vec4_result = vec4_add(vec4_a, vec4_b);
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>SIMD Optimization Considerations</h4>
+                            <ul>
+                                <li>Data should be properly aligned for maximum performance</li>
+                                <li>Vectorization works best with simple, regular computation patterns</li>
+                                <li>Auto-vectorization by compilers has improved but manual optimization often yields better results</li>
+                                <li>Newer SIMD extensions provide more complex operations (gather/scatter, permute, etc.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="gpu" class="tab-content">
+                        <h4>GPU Computing</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>Graphics Processing Units (GPUs) are highly parallel processors originally designed for graphics rendering that have evolved into general-purpose computing accelerators.</p>
+                                
+                                <h5>GPU Architecture Characteristics:</h5>
+                                <ul class="info-list">
+                                    <li><strong>Massive Parallelism:</strong> Thousands of simple cores</li>
+                                    <li><strong>SIMT Architecture:</strong> Single Instruction, Multiple Thread model</li>
+                                    <li><strong>Deep Memory Hierarchy:</strong> Global, shared, and local memories with different performance characteristics</li>
+                                    <li><strong>Optimized for Throughput:</strong> High computational density at the expense of latency</li>
+                                </ul>
+                            </div>
+                            <div class="image-container">
+                                <img src="https://via.placeholder.com/500x300?text=GPU+Computing+Architecture" alt="GPU Computing Architecture">
+                                <p class="image-caption">SIMT architecture in modern GPUs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4>CPU vs. GPU: When to Use Each</h4>
+                            <p>Choosing between CPU and GPU depends on workload characteristics:</p>
+                            <table>
+                                <tr>
+                                    <td><strong>Use CPU when:</strong></td>
+                                    <td><strong>Use GPU when:</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Task has complex control flow</td>
+                                    <td>Task involves parallel operations on large data sets</td>
+                                </tr>
+                                <tr>
+                                    <td>Sequential processing dominates</td>
+                                    <td>Data parallelism is high</td>
+                                </tr>
+                                <tr>
+                                    <td>Low latency is critical</td>
+                                    <td>High throughput is more important than latency</td>
+                                </tr>
+                                <tr>
+                                    <td>Task requires large caches</td>
+                                    <td>Compute-to-memory ratio is high</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="vector" class="tab-content">
+                        <h4>Vector Processing</h4>
+                        
+                        <div class="two-column">
+                            <div>
+                                <p>Vector processors operate on entire vectors or arrays of data with a single instruction, making them highly efficient for scientific and supercomputing applications.</p>
+                                
+                                <h5>Modern Vector Architectures:</h5>
+                                <ul class="info-list">
+                                    <li><strong>ARM SVE (Scalable Vector Extension):</strong> Length-agnostic vector processing, allowing the same code to run on different vector widths</li>
+                                    <li><strong>RISC-V Vector Extension:</strong> Flexible, scalable approach without fixed vector length</li>
+                                    <li><strong>NEC SX-Aurora TSUBASA:</strong> Purpose-built vector supercomputer with high memory bandwidth</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="info-box">
+                                    <h4>Vector vs. SIMD Processing</h4>
+                                    <p><strong>Key Differences:</strong></p>
+                                    <ul>
+                                        <li>Vector architectures support variable-length vectors; SIMD typically has fixed-width registers</li>
+                                        <li>Vector processors often have more sophisticated operations (scatter/gather, masked operations)</li>
+                                        <li>Vector processing can more efficiently handle vectors longer than hardware width</li>
+                                        <li>Modern architectures increasingly blur the distinction between vector and SIMD</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Thread-Level Parallelism (TLP)</h3>
+                
+                <p>Thread-Level Parallelism involves executing multiple threads of control in parallel, either on separate cores or through simultaneous multithreading within a core.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>Multi-Core Processing</h4>
+                        <ul class="info-list">
+                            <li><strong>Core Count Scaling:</strong> From 2-4 cores in consumer devices to 64+ cores in server processors</li>
+                            <li><strong>Core Designs:</strong> Homogeneous (identical cores) vs. heterogeneous (mix of high-performance and efficiency cores)</li>
+                            <li><strong>Coherence Challenges:</strong> Maintaining consistent view of memory across cores</li>
+                            <li><strong>Interconnect Architectures:</strong> Ring, mesh, crossbar designs for core-to-core communication</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Simultaneous Multithreading (SMT)</h4>
+                        <ul class="info-list">
+                            <li><strong>Implementation:</strong> Multiple hardware threads sharing a single physical core's resources</li>
+                            <li><strong>Trade-offs:</strong> Improved throughput at the cost of single-thread performance</li>
+                            <li><strong>Commercial Examples:</strong> Intel Hyper-Threading (2 threads), IBM POWER9 (8 threads)</li>
+                            <li><strong>Security Concerns:</strong> Potential side-channel vulnerabilities from resource sharing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/800x400?text=Thread+Level+Parallelism" alt="Thread Level Parallelism">
+                    <p class="image-caption">Multi-core processor with simultaneous multithreading</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Amdahl's Law and Parallel Scaling</h4>
+                    <p>Amdahl's Law defines the theoretical speedup limit when parallelizing a program:</p>
+                    <p>Speedup = 1 / ((1 - P) + P/N)</p>
+                    <p>Where P is the proportion of the program that can be parallelized, and N is the number of processors.</p>
+                    <p>This law explains why many applications don't scale linearly with processor count - the sequential portion becomes the bottleneck.</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Specialized Acceleration Techniques</h3>
+                
+                <p>Beyond general-purpose optimization, modern systems employ specialized acceleration units for common operations and specific workloads.</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Application-Specific Integrated Circuits (ASICs)</h4>
+                        <p>Custom silicon designed for specific functions like video encoding/decoding, cryptography, or AI inference. Offers maximum performance and efficiency but at high development cost and low flexibility.</p>
+                        <p><strong>Examples:</strong> Google TPU, Bitcoin mining ASICs, video codec accelerators</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Field-Programmable Gate Arrays (FPGAs)</h4>
+                        <p>Reconfigurable hardware that can be programmed with custom logic circuits. Provides a middle ground between the flexibility of software and performance of hardware.</p>
+                        <p><strong>Examples:</strong> Microsoft Catapult, Intel eASIC, AWS F1 instances</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Domain-Specific Architectures (DSAs)</h4>
+                        <p>Processors specialized for a class of applications but more flexible than ASICs. Optimize for specific computation patterns common in their target domain.</p>
+                        <p><strong>Examples:</strong> Neural processing units (NPUs), vision processing units (VPUs)</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>System-on-Chip Integration</h4>
+                        <p>Combining specialized accelerators, CPUs, GPUs, and memory on a single chip to reduce communication overhead and energy consumption.</p>
+                        <p><strong>Examples:</strong> Apple M-series, Qualcomm Snapdragon, AMD APUs</p>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <h4>The Future: Heterogeneous Computing</h4>
+                    <p>The future of computing is increasingly heterogeneous, combining:</p>
+                    <ul>
+                        <li>General-purpose CPU cores (both high-performance and high-efficiency)</li>
+                        <li>Graphics processing units (GPUs)</li>
+                        <li>Domain-specific accelerators (NPUs, DSPs, video encoders/decoders)</li>
+                        <li>Programmable logic (FPGAs or eFPGAs)</li>
+                        <li>Custom ASICs for critical functions</li>
+                    </ul>
+                    <p>This approach maximizes performance and energy efficiency by using the right processing element for each task.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Main Topics</h3>
+                    <ul>
+                        <li><a href="#pipelining">Pipelining Techniques</a></li>
+                        <li><a href="#risc-cisc">RISC vs CISC Design</a></li>
+                        <li><a href="#memory-management">Memory Management</a></li>
+                        <li><a href="#optimization">Performance Optimization</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Additional Resources</h3>
+                    <ul>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Architecture Simulators</a></li>
+                        <li><a href="#">Reference Manuals</a></li>
+                        <li><a href="#">Online Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Related Topics</h3>
+                    <ul>
+                        <li><a href="#">Parallel Computing</a></li>
+                        <li><a href="#">Compiler Optimization</a></li>
+                        <li><a href="#">Hardware Security</a></li>
+                        <li><a href="#">Quantum Computing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Advanced Computer Organization & Architecture. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+            this.textContent = document.getElementById('main-nav').classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            // Declare variables
+            var i, tabcontent, tabbuttons;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tab-button" and remove "active" class
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            for (const link of links) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (document.getElementById('main-nav').classList.contains('active')) {
+                            document.getElementById('main-nav').classList.remove('active');
+                            document.getElementById('mobile-menu-toggle').textContent = '☰';
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Pipeline demo functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // This is just a simple example - in a real implementation,
+            // this would animate the pipeline stages
+            document.getElementById('pipeline-start').addEventListener('click', function() {
+                alert('In a complete implementation, this would animate the pipeline execution step by step, showing how instructions flow through the stages and how hazards are resolved.');
+            });
+            
+            document.getElementById('pipeline-step').addEventListener('click', function() {
+                alert('This would advance the pipeline visualization by one cycle, showing the movement of instructions between stages.');
+            });
+            
+            document.getElementById('pipeline-reset').addEventListener('click', function() {
+                alert('This would reset the pipeline demo to its initial state.');
+            });
+        });
+    </script>
+</body>
+</html>

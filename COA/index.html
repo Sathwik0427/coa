@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Organization & Architecture - Learn from Basics to Advanced</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="announcement-bar">
+            <marquee behavior="scroll" direction="left">
+                <b>NEW:</b> Interactive Computer Architecture Simulator Added! | Live Workshop on RISC vs CISC - May 15, 2025 | Free eBook: "Understanding Computer Architecture" for members
+            </marquee>
+        </div>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">C<span class="highlight">O</span>A<span class="highlight">Hub</span></span>
+                </a>
+            </div>
+            <nav id="navbar">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#learning-paths">Learning Paths</a></li>
+                    <li class="dropdown">
+                        <a href="#topics">Topics <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="#basics">Computer Basics</a></li>
+                            <li><a href="#data-rep">Data Representation</a></li>
+                            <li><a href="#architecture">Architecture</a></li>
+                            <li><a href="#organization">Organization</a></li>
+                            <li><a href="#instructions">Instructions</a></li>
+                            <li><a href="#arithmetic">Arithmetic Operations</a></li>
+                            <li><a href="#performance">Performance</a></li>
+                            <li><a href="#advanced">Advanced Topics</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#simulators">Simulators</a></li>
+                    <li><a href="#quizzes">Quizzes</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Computer Organization & Architecture</h1>
+                <p>From foundational concepts to advanced implementations - your complete learning journey starts here.</p>
+                <div class="hero-buttons">
+                    <a href="#learning-paths" class="btn btn-primary">Start Learning</a>
+                    <a href="#topics" class="btn btn-secondary">Explore Topics</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="./assets/cpu.png" alt="Computer Architecture Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Paths Section -->
+    <section id="learning-paths" class="learning-paths-section">
+        <div class="container">
+            <h2 class="section-title">Learning Paths</h2>
+            <p class="section-description">Choose your learning path based on your experience level</p>
+            
+            <div class="path-cards">
+                <div class="path-card" id="beginner-path">
+                    <div class="path-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Beginner</h3>
+                    <p>Start with the fundamentals of computer organization, binary system, and basic architecture concepts.</p>
+                    <ul class="path-topics">
+                        <li>Computer Basics</li>
+                        <li>Binary Number System</li>
+                        <li>Logic Gates</li>
+                        <li>Basic Computer Structure</li>
+                    </ul>
+                    <a href="./beginner/index.html" class="btn btn-outline" target="_blank">Start Path</a>
+                </div>
+                
+                <div class="path-card" id="intermediate-path">
+                    <div class="path-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Intermediate</h3>
+                    <p>Dive deeper into functional units, memory organization, and instruction cycles.</p>
+                    <ul class="path-topics">
+                        <li>CPU Organization</li>
+                        <li>Memory Hierarchy</li>
+                        <li>Instruction Sets</li>
+                        <li>Addressing Modes</li>
+                    </ul>
+                    <a href="./Intermediate/index.html" class="btn btn-outline" target="_blank">Start Path</a>
+                </div>
+                
+                <div class="path-card" id="advanced-path">
+                    <div class="path-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Advanced</h3>
+                    <p>Master pipelining, RISC vs CISC architectures, and modern optimization techniques.</p>
+                    <ul class="path-topics">
+                        <li>Pipelining Techniques</li>
+                        <li>RISC vs CISC Design</li>
+                        <li>Memory Management</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                    <a href="./advanced/index.html" class="btn btn-outline" target="_blank">Start Path</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Topics Overview -->
+    <section id="topics" class="topics-section">
+        <div class="container">
+            <h2 class="section-title">Core Topics in Computer Organization & Architecture</h2>
+            
+            <!-- Basic Computer Structure -->
+            <div id="basics" class="topic-container">
+                <div class="topic-header" onclick="toggleTopic('basics-content')">
+                    <h3><i class="fas fa-server"></i> Basic Computer Structure</h3>
+                    <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="basics-content" class="topic-content">
+                    <div class="topic-grid">
+                        <div class="topic-text">
+                            <p>Computer organization refers to the operational units and their interconnections that realize the architectural specifications. It includes the detailed hardware design of the computer system.</p>
+                            
+                            <h4>Key Components:</h4>
+                            <ul>
+                                <li><strong>CPU (Central Processing Unit)</strong>: The brain of the computer that performs arithmetic and logical operations.</li>
+                                <li><strong>Memory Units</strong>: Storage areas for data and instructions (RAM, ROM, Cache).</li>
+                                <li><strong>Input/Output Devices</strong>: Interfaces that allow communication with the external world.</li>
+                                <li><strong>System Bus</strong>: Communication pathways between components.</li>
+                            </ul>
+                            
+                            <a href="#" class="read-more">Learn more about Computer Basics →</a>
+                        </div>
+                        <div class="topic-visual">
+                            <img src="./assets/motherboard.png" alt="Computer Components Diagram">
+                            <div class="visual-caption">Basic Computer Organization Structure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Representation -->
+            <div id="data-rep" class="topic-container">
+                <div class="topic-header" onclick="toggleTopic('data-rep-content')">
+                    <h3><i class="fas fa-database"></i> Data Representation</h3>
+                    <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="data-rep-content" class="topic-content">
+                    <div class="topic-grid">
+                        <div class="topic-text">
+                            <p>Data representation involves how information is encoded and stored within a computer system. Understanding these concepts is fundamental to computer organization.</p>
+                            
+                            <h4>Number Systems:</h4>
+                            <ul>
+                                <li><strong>Binary (Base-2)</strong>: The fundamental number system used in computing (0s and 1s).</li>
+                                <li><strong>Hexadecimal (Base-16)</strong>: Used as a human-friendly representation of binary values.</li>
+                                <li><strong>Octal (Base-8)</strong>: Historical importance in early computing systems.</li>
+                            </ul>
+                            
+                            <h4>Data Formats:</h4>
+                            <ul>
+                                <li><strong>Fixed-Point Representation</strong>: For integers and fixed decimal point numbers.</li>
+                                <li><strong>Floating-Point Representation</strong>: For representing real numbers with varying precision.</li>
+                                <li><strong>Character Encoding</strong>: Schemes like ASCII, Unicode for representing text.</li>
+                            </ul>
+                            
+                            <a href="#" class="read-more">Learn more about Data Representation →</a>
+                        </div>
+                        <div class="topic-visual">
+                            <div class="interactive-demo">
+                                <h4>Binary Conversion Tool</h4>
+                                <div class="converter-container">
+                                    <input type="number" id="decimal-input" placeholder="Enter decimal number" class="converter-input">
+                                    <button onclick="convertNumber()" class="converter-btn">Convert</button>
+                                    <div class="result-container">
+                                        <div class="result-item">
+                                            <span>Binary:</span>
+                                            <span id="binary-result">-</span>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Hexadecimal:</span>
+                                            <span id="hex-result">-</span>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Octal:</span>
+                                            <span id="octal-result">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Computer Architecture -->
+            <div id="architecture" class="topic-container">
+                <div class="topic-header" onclick="toggleTopic('architecture-content')">
+                    <h3><i class="fas fa-microchip"></i> Computer Architecture</h3>
+                    <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="architecture-content" class="topic-content">
+                    <div class="topic-grid">
+                        <div class="topic-text">
+                            <p>Computer architecture defines the conceptual design and fundamental operational structure of a computer system. It serves as a blueprint for system designers.</p>
+                            
+                            <h4>Architecture Types:</h4>
+                            <ul>
+                                <li><strong>Von Neumann Architecture</strong>: Uses a single memory for both data and instructions.</li>
+                                <li><strong>Harvard Architecture</strong>: Uses separate memories for data and instructions.</li>
+                                <li><strong>Modified Harvard Architecture</strong>: A hybrid approach used in modern systems.</li>
+                            </ul>
+                            
+                            <h4>Instruction Set Architecture (ISA):</h4>
+                            <ul>
+                                <li><strong>CISC (Complex Instruction Set Computer)</strong>: Many specialized instructions.</li>
+                                <li><strong>RISC (Reduced Instruction Set Computer)</strong>: Fewer, optimized instructions.</li>
+                                <li><strong>MISC, VLIW, EPIC</strong>: Other architectural approaches.</li>
+                            </ul>
+                            
+                            <a href="#" class="read-more">Learn more about Computer Architecture →</a>
+                        </div>
+                        <div class="topic-visual">
+                            <div class="tabs-container">
+                                <div class="tab-buttons">
+                                    <button class="tab-btn active" onclick="changeTab('von-neumann')">Von Neumann</button>
+                                    <button class="tab-btn" onclick="changeTab('harvard')">Harvard</button>
+                                    <button class="tab-btn" onclick="changeTab('modern')">Modern Hybrid</button>
+                                </div>
+                                <div class="tab-content">
+                                    <div id="von-neumann" class="tab-pane active">
+                                        <img src="./assets/von.png" alt="Von Neumann Architecture">
+                                        <p>The Von Neumann architecture uses a single memory space for both data and instructions, which can create a bottleneck known as the "Von Neumann bottleneck."</p>
+                                    </div>
+                                    <div id="harvard" class="tab-pane">
+                                        <img src="./assets/Harvard.png" alt="Harvard Architecture">
+                                        <p>The Harvard architecture uses separate memory spaces for data and instructions, allowing for simultaneous access and potentially higher performance.</p>
+                                    </div>
+                                    <div id="modern" class="tab-pane">
+                                        <img src="./assets/mhardvard.png" alt="Modern Hybrid Architecture">
+                                        <p>Modern processors often use a modified Harvard architecture with separate L1 caches for instructions and data, but unified L2/L3 caches and main memory.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More topics would continue here following the same pattern -->
+            
+            <!-- Quick Knowledge Check -->
+            <div class="knowledge-check">
+                <h3>Quick Knowledge Check</h3>
+                <div id="quiz-container">
+                    <div id="question-container">
+                        <p id="question">Which architecture uses separate memory for instructions and data?</p>
+                        <div id="options-container">
+                            <div class="option">
+                                <input type="radio" name="quiz" id="option1" value="Von Neumann">
+                                <label for="option1">Von Neumann</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="quiz" id="option2" value="Harvard">
+                                <label for="option2">Harvard</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="quiz" id="option3" value="RISC">
+                                <label for="option3">RISC</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="quiz" id="option4" value="CISC">
+                                <label for="option4">CISC</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="submit-btn" onclick="checkAnswer()">Submit Answer</button>
+                    <div id="result-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulators Section -->
+    <section id="simulators" class="simulators-section">
+        <div class="container">
+            <h2 class="section-title">Interactive Simulators</h2>
+            <p class="section-description">Hands-on learning with our interactive simulators</p>
+            
+            <div class="simulator-cards">
+                <div class="simulator-card">
+                    <div class="simulator-image">
+                        <img src="./assets/cpusim.png" alt="CPU Simulator">
+                    </div>
+                    <div class="simulator-content">
+                        <h3>CPU Simulator</h3>
+                        <p>Explore the inner workings of a CPU with this interactive simulator. Learn about fetch-decode-execute cycles and register operations.</p>
+                        <a href="./cpusim/index.html" class="btn btn-primary" target="_blank">Launch Simulator</a>
+                    </div>
+                </div>
+                
+                <div class="simulator-card">
+                    <div class="simulator-image">
+                        <img src="./assets/mem (1).jpg" alt="Memory Hierarchy Simulator">
+                    </div>
+                    <div class="simulator-content">
+                        <h3>Memory Hierarchy Simulator</h3>
+                        <p>Visualize data flow through different levels of memory cache, and understand concepts like cache hits, misses, and replacement policies.</p>
+                        <a href="./mem/index.html" class="btn btn-primary" target="_blank">Launch Simulator</a>
+                     </div>
+                </div>
+                
+                <div class="simulator-card">
+                    <div class="simulator-image">
+                        <img src="./assets/pipe.png" alt="Pipelining Visualizer">
+                    </div>
+                    <div class="simulator-content">
+                        <h3>Pipelining Visualizer</h3>
+                        <p>See pipelining in action and explore how modern processor designs handle hazards, stalls, and data dependencies using techniques like forwarding and stalling</p>
+                        <a href="./pipe/index.html" class="btn btn-primary" target="_blank">Launch Simulator</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Resources -->
+    <section id="resources" class="resources-section">
+        <div class="container">
+            <h2 class="section-title">Learning Resources</h2>
+            <div class="resources-container">
+                <div class="resource-category">
+                    <h3><i class="fas fa-book"></i> Recommended Books</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-title">Computer Organization and Design: The Hardware/Software Interface</span>
+                            <span class="resource-author">by David A. Patterson and John L. Hennessy</span>
+                        </li>
+                        <li>
+                            <span class="resource-title">Computer Architecture: A Quantitative Approach</span>
+                            <span class="resource-author">by John L. Hennessy and David A. Patterson</span>
+                        </li>
+                        <li>
+                            <span class="resource-title">Digital Design and Computer Architecture</span>
+                            <span class="resource-author">by David Harris and Sarah Harris</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                  <h3><i class="fas fa-video"></i> Video Lectures</h3>
+                  <ul class="resource-list">
+                      <li>
+                          <a class="resource-link" href="https://www.coursera.org/learn/comparch?action=enroll" target="_blank">
+                              Computer Architecture - Princeton University
+                          </a>
+                          <span class="resource-duration">42 lectures, ~90 minutes each</span>
+                      </li>
+                      <li>
+                          <a class="resource-link" href="https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/" target="_blank">
+                              Computer Organization - MIT OpenCourseWare
+                          </a>
+                          <span class="resource-duration">24 lectures, ~50 minutes each</span>
+                      </li>
+                      <li>
+                          <a class="resource-link" href="https://online.stanford.edu/courses/soe-yintrologic-introduction-logic" target="_blank">
+                              Digital Logic Design - Stanford Online
+                          </a>
+                          <span class="resource-duration">18 lectures, ~60 minutes each</span>
+                      </li>
+                  </ul>
+              </div>
+              
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-file-pdf"></i> Downloadable Materials</h3>
+                    <ul class="resource-list downloads">
+                        <li>
+                            <span class="resource-title">Computer Architecture Cheat Sheet</span>
+                            <a href="./pdfs/Computer Architecture Cheat Sheet.pdf" class="download-btn" target="_blank" >Download PDF</a>
+                        </li>
+                        <li>
+                            <span class="resource-title">Assembly Language Programming Guide</span>
+                            <a href="./pdfs/Assembly Language Programming Guide Cheat Sheet.pdf" class="download-btn" target="_blank">Download PDF</a>
+                        </li>
+                        <li>
+                            <span class="resource-title">CPU Architecture Comparison Chart</span>
+                            <a href="./pdfs/CPU Architecture Comparison Chart.pdf" class="download-btn" target="_blank" >Download PDF</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated with Latest COA Resources</h2>
+                <p>Subscribe to our newsletter for weekly updates, new materials, and upcoming events</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>About COAHub</h3>
+                    <p>COAHub is dedicated to providing comprehensive, accessible education on Computer Organization and Architecture to students, professionals, and enthusiasts worldwide.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#learning-paths">Learning Paths</a></li>
+                        <li><a href="#topics">Topics</a></li>
+                        <li><a href="#simulators">Simulators</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@coahub.edu</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 COAHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

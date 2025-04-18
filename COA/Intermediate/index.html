@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate Computer Organization & Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2962ff;
+            --primary-dark: #0039cb;
+            --primary-light: #e3f2fd;
+            --secondary-color: #ff5722;
+            --text-dark: #263238;
+            --text-light: #455a64;
+            --text-muted: #78909c;
+            --background-light: #f5f7fa;
+            --border-color: #eceff1;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #bbdefb 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .content-box h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-box p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .two-column {
+            display: flex;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .two-column > div {
+            flex: 1;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .info-list {
+            margin: 20px 0;
+        }
+
+        .info-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .info-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .info-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background-color: #fff3e0;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        .tabs {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .interactive-demo {
+            background-color: var(--background-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .interactive-demo h4 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #b0bec5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #78909c;
+            font-size: 0.9rem;
+        }
+
+        /* Diagrams and visual elements */
+        .cpu-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .cpu-component {
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cpu-component h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .cpu-component p {
+            font-size: 0.9rem;
+        }
+
+        .connection {
+            width: 2px;
+            height: 20px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .memory-hierarchy {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 30px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .memory-level {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .memory-level:nth-child(1) {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .memory-level:nth-child(2) {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .memory-level:nth-child(3) {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .memory-level:nth-child(4) {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff8e1;
+            border-color: #ffc107;
+        }
+
+        .memory-level:nth-child(5) {
+            width: 90%;
+            margin: 0 auto;
+            background-color: #ffebee;
+            border-color: #f44336;
+        }
+
+        .memory-level h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .memory-level p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        .address-modes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .address-modes-table th, .address-modes-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .address-modes-table th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .address-modes-table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+
+            .memory-level {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Computer<span>Org</span> Intermediate</div>
+            <nav>
+                <ul>
+                    <li><a href="#cpu-organization">CPU Organization</a></li>
+                    <li><a href="#memory-hierarchy">Memory Hierarchy</a></li>
+                    <li><a href="#instruction-sets">Instruction Sets</a></li>
+                    <li><a href="#addressing-modes">Addressing Modes</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Intermediate Computer Organization & Architecture</h1>
+            <p>Dive deeper into functional units, memory organization, instruction cycles, and addressing modes</p>
+            <a href="#cpu-organization" class="btn">Start Learning</a>
+        </div>
+    </section>
+
+    <!-- CPU Organization Section -->
+    <section id="cpu-organization" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>CPU Organization</h2>
+                <p>Understanding the detailed structure and components of the Central Processing Unit</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Core Components of CPU</h3>
+                <p>The Central Processing Unit (CPU) is the brain of the computer system, responsible for executing instructions and performing data processing operations. Modern CPUs are composed of three essential components that work together to execute program instructions:</p>
+                
+                <div class="cpu-diagram">
+                    <div class="cpu-component">
+                        <h4>Control Unit (CU)</h4>
+                        <p>Controls the transfer of data among registers and instructs the ALU to perform specific operations. It fetches, decodes, and executes instructions.</p>
+                    </div>
+                    <div class="connection"></div>
+                    <div class="cpu-component">
+                        <h4>Arithmetic Logic Unit (ALU)</h4>
+                        <p>Performs mathematical operations (addition, subtraction, etc.) and logical operations (AND, OR, NOT, etc.) on data as directed by the control unit.</p>
+                    </div>
+                    <div class="connection"></div>
+                    <div class="cpu-component">
+                        <h4>Registers</h4>
+                        <p>Small, high-speed memory units within the CPU used to store data temporarily during program execution.</p>
+                    </div>
+                </div>
+
+                <p>These three components work together in a tightly integrated manner to execute program instructions efficiently.</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Register Organization</h3>
+                <p>A CPU contains multiple registers to store data temporarily during execution of a program. Registers provide extremely fast storage directly accessible by the CPU, significantly faster than accessing main memory.</p>
+                
+                <div class="info-box">
+                    <h4>Why Use Registers?</h4>
+                    <p>Intermediate data like pointers, counters, return addresses, temporary results, and partial products need to be stored during program execution. Storing them in main memory would be inefficient due to slower access times. Registers provide ultra-fast access directly within the processor.</p>
+                </div>
+                
+                <h4>Types of CPU Registers</h4>
+                <p>Modern CPUs feature various specialized registers, each serving specific functions:</p>
+
+                <table>
+                    <tr>
+                        <th>Register Type</th>
+                        <th>Function</th>
+                        <th>Examples</th>
+                    </tr>
+                    <tr>
+                        <td>General Purpose Registers</td>
+                        <td>Store data and addresses for various operations</td>
+                        <td>R0-R31, EAX, EBX, ECX, EDX</td>
+                    </tr>
+                    <tr>
+                        <td>Special Purpose Registers</td>
+                        <td>Serve specific functions in CPU operations</td>
+                        <td>Program Counter (PC), Instruction Register (IR), Accumulator (AC)</td>
+                    </tr>
+                    <tr>
+                        <td>Status Registers</td>
+                        <td>Store condition codes and CPU state flags</td>
+                        <td>Flags Register (Zero, Carry, Overflow, Sign)</td>
+                    </tr>
+                    <tr>
+                        <td>Segment Registers</td>
+                        <td>Used in memory segmentation</td>
+                        <td>Code Segment (CS), Data Segment (DS), Stack Segment (SS)</td>
+                    </tr>
+                    <tr>
+                        <td>Index Registers</td>
+                        <td>Used for indexed addressing</td>
+                        <td>Index Register (X), Stack Pointer (SP)</td>
+                    </tr>
+                </table>
+
+                <div class="two-column">
+                    <div>
+                        <h4>Specialized Registers in Detail</h4>
+                        <ul class="info-list">
+                            <li><strong>Program Counter (PC):</strong> Contains the address of the next instruction to be executed</li>
+                            <li><strong>Instruction Register (IR):</strong> Holds the current instruction being executed</li>
+                            <li><strong>Memory Address Register (MAR):</strong> Holds the memory address for read/write operations</li>
+                            <li><strong>Memory Data Register (MDR):</strong> Holds data read from or to be written to memory</li>
+                            <li><strong>Accumulator (AC):</strong> Primary register for arithmetic and logical operations</li>
+                            <li><strong>Stack Pointer (SP):</strong> Points to the top of the stack in memory</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=CPU+Register+Organization" alt="CPU Register Organization">
+                        <p class="image-caption">Typical register organization in a modern CPU</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Bus Structure in CPU Organization</h3>
+                <p>A bus is a communication pathway that transfers data between components inside a computer or between computers. In CPU organization, buses are crucial for connecting different components and facilitating data transfer.</p>
+                
+                <h4>Major Bus Types</h4>
+                <div class="two-column">
+                    <div>
+                        <ul class="info-list">
+                            <li><strong>Data Bus:</strong> Bidirectional bus that carries actual data between components (8, 16, 32, 64, or 128 bits wide)</li>
+                            <li><strong>Address Bus:</strong> Unidirectional bus that carries memory addresses from the processor to memory and I/O devices</li>
+                            <li><strong>Control Bus:</strong> Bidirectional bus that carries control signals (read/write, interrupt, clock signals, etc.)</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=CPU+Bus+Structure" alt="CPU Bus Structure">
+                        <p class="image-caption">Interconnection of CPU components through bus structure</p>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Bus Width and Performance</h4>
+                    <p>Bus width significantly impacts system performance. A wider data bus can transfer more data in a single cycle. For example, a 64-bit data bus can transfer twice as much data as a 32-bit bus in a single cycle, potentially doubling data throughput.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Hierarchy Section -->
+    <section id="memory-hierarchy" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Memory Hierarchy</h2>
+                <p>Understanding the organization and access patterns of computer memory systems</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Memory Hierarchy Design</h3>
+                <p>Memory hierarchy refers to the arrangement of different types of memory in a computing system, organized based on speed, capacity, and cost. Each level in the hierarchy provides a different trade-off between these factors.</p>
+                
+                <div class="memory-hierarchy">
+                    <div class="memory-level">
+                        <h4>CPU Registers</h4>
+                        <p>Fastest, smallest, most expensive (Level 0)</p>
+                    </div>
+                    <div class="memory-level">
+                        <h4>Cache Memory (L1, L2, L3)</h4>
+                        <p>Very fast, small, expensive (Level 1)</p>
+                    </div>
+                    <div class="memory-level">
+                        <h4>Main Memory (RAM)</h4>
+                        <p>Moderately fast, medium capacity, moderate cost (Level 2)</p>
+                    </div>
+                    <div class="memory-level">
+                        <h4>Secondary Storage (HDD, SSD)</h4>
+                        <p>Slow, large capacity, less expensive (Level 3)</p>
+                    </div>
+                    <div class="memory-level">
+                        <h4>Tertiary Storage (Tapes, Optical Disks)</h4>
+                        <p>Very slow, very large capacity, least expensive (Level 4)</p>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Memory Hierarchy Principle</h4>
+                    <p>As we move down the memory hierarchy, three key characteristics change: access time increases (becomes slower), capacity increases (larger storage), and cost per bit decreases (becomes cheaper). This hierarchy allows systems to balance performance with cost-effectiveness.</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Cache Memory</h3>
+                <p>Cache memory is a small, high-speed memory that acts as a buffer between the CPU and main memory. It stores frequently accessed data and instructions to reduce average memory access time.</p>
+
+                <div class="two-column">
+                    <div>
+                        <h4>Cache Levels</h4>
+                        <ul class="info-list">
+                            <li><strong>L1 Cache:</strong> Smallest but fastest, typically integrated into the CPU core (separated into instruction and data caches)</li>
+                            <li><strong>L2 Cache:</strong> Larger but slightly slower, may be shared among cores or dedicated to individual cores</li>
+                            <li><strong>L3 Cache:</strong> Largest but slowest cache level, usually shared among all cores in a multi-core processor</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Cache+Memory+Hierarchy" alt="Cache Memory Hierarchy">
+                        <p class="image-caption">Multi-level cache organization in modern processors</p>
+                    </div>
+                </div>
+
+                <h4>Cache Mapping Techniques</h4>
+                <p>Cache mapping refers to how main memory blocks are mapped to cache blocks:</p>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'direct-mapping')">Direct Mapping</button>
+                        <button class="tab-button" onclick="openTab(event, 'fully-associative')">Fully Associative</button>
+                        <button class="tab-button" onclick="openTab(event, 'set-associative')">Set Associative</button>
+                    </div>
+                    
+                    <div id="direct-mapping" class="tab-content active">
+                        <h4>Direct Mapping</h4>
+                        <p>Each memory block can only be placed in one specific cache block. The mapping is determined by: (Memory Block Address) MOD (Number of Cache Blocks)</p>
+                        <p><strong>Advantages:</strong> Simple to implement, low hardware overhead</p>
+                        <p><strong>Disadvantages:</strong> Higher conflict misses, less flexible</p>
+                    </div>
+                    
+                    <div id="fully-associative" class="tab-content">
+                        <h4>Fully Associative Mapping</h4>
+                        <p>Any memory block can be placed in any cache block. The cache controller must search all cache entries when looking for a memory block.</p>
+                        <p><strong>Advantages:</strong> Maximum flexibility, minimum conflict misses</p>
+                        <p><strong>Disadvantages:</strong> Complex hardware, expensive, slower lookup</p>
+                    </div>
+                    
+                    <div id="set-associative" class="tab-content">
+                        <h4>Set Associative Mapping</h4>
+                        <p>A compromise between direct and fully associative mapping. The cache is divided into sets, and a memory block can be placed in any block within a specific set.</p>
+                        <p><strong>Advantages:</strong> Good balance of flexibility and simplicity</p>
+                        <p><strong>Disadvantages:</strong> More complex than direct mapping, but less complex than fully associative</p>
+                    </div>
+                </div>
+
+                <h4>Cache Performance Metrics</h4>
+                <ul class="info-list">
+                    <li><strong>Hit Rate:</strong> Percentage of memory accesses found in the cache</li>
+                    <li><strong>Miss Rate:</strong> Percentage of memory accesses not found in the cache</li>
+                    <li><strong>Hit Time:</strong> Time to access data in the cache</li>
+                    <li><strong>Miss Penalty:</strong> Additional time required to access data from main memory when a cache miss occurs</li>
+                    <li><strong>Average Memory Access Time (AMAT):</strong> Hit Time + (Miss Rate × Miss Penalty)</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>Virtual Memory</h3>
+                <p>Virtual memory is a memory management technique that provides an idealized abstraction of the storage resources that are actually available on a system. It creates the illusion of a very large main memory.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>Key Concepts in Virtual Memory</h4>
+                        <ul class="info-list">
+                            <li><strong>Virtual Address Space:</strong> The addressing scheme as seen by the process</li>
+                            <li><strong>Physical Address Space:</strong> The actual addressing scheme of physical memory</li>
+                            <li><strong>Page:</strong> Fixed-size blocks of virtual memory</li>
+                            <li><strong>Frame:</strong> Fixed-size blocks of physical memory</li>
+                            <li><strong>Page Table:</strong> Data structure that maps virtual pages to physical frames</li>
+                            <li><strong>Translation Lookaside Buffer (TLB):</strong> Cache for page table entries</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Virtual+Memory+System" alt="Virtual Memory System">
+                        <p class="image-caption">Virtual memory address translation process</p>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Benefits of Virtual Memory</h4>
+                    <p>Virtual memory provides several key benefits:</p>
+                    <ol>
+                        <li>Programs can use more memory than physically available (through paging)</li>
+                        <li>Memory protection and isolation between processes</li>
+                        <li>More efficient use of physical memory through sharing</li>
+                        <li>Simplifies memory allocation for programmers</li>
+                    </ol>
+                </div>
+                
+                <h4>Page Replacement Algorithms</h4>
+                <p>When physical memory is full and a new page needs to be loaded, a page replacement algorithm determines which existing page to evict:</p>
+                <ul class="info-list">
+                    <li><strong>First-In-First-Out (FIFO):</strong> Replaces the oldest page in memory</li>
+                    <li><strong>Least Recently Used (LRU):</strong> Replaces the page that has not been used for the longest time</li>
+                    <li><strong>Least Frequently Used (LFU):</strong> Replaces the page with the lowest access frequency</li>
+                    <li><strong>Clock Algorithm:</strong> Approximates LRU with lower overhead using a reference bit</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instruction Sets Section -->
+    <section id="instruction-sets" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Instruction Sets</h2>
+                <p>Understanding the variety and characteristics of processor instruction sets</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Instruction Set Architecture (ISA)</h3>
+                <p>An Instruction Set Architecture (ISA) is an abstract model of a computer that defines how the CPU is controlled by software. It acts as the interface between hardware and software, specifying what instructions a processor can execute.</p>
+                
+                <div class="info-box">
+                    <h4>Components of an Instruction Set</h4>
+                    <p>A complete instruction set architecture includes:</p>
+                    <ul>
+                        <li>Instruction types and formats</li>
+                        <li>Registers and their organization</li>
+                        <li>Addressing modes</li>
+                        <li>Memory architecture</li>
+                        <li>Interrupt and exception handling</li>
+                        <li>I/O operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Instruction Types</h3>
+                <p>A comprehensive instruction set typically includes several categories of instructions, each serving different purposes in program execution:</p>
+                
+                <table>
+                    <tr>
+                        <th>Instruction Category</th>
+                        <th>Purpose</th>
+                        <th>Examples</th>
+                    </tr>
+                    <tr>
+                        <td>Data Transfer</td>
+                        <td>Move data between memory and registers or between registers</td>
+                        <td>LOAD, STORE, MOVE, PUSH, POP</td>
+                    </tr>
+                    <tr>
+                        <td>Arithmetic Operations</td>
+                        <td>Perform mathematical calculations</td>
+                        <td>ADD, SUB, MUL, DIV, INC, DEC</td>
+                    </tr>
+                    <tr>
+                        <td>Logical Operations</td>
+                        <td>Perform bitwise logical operations</td>
+                        <td>AND, OR, XOR, NOT</td>
+                    </tr>
+                    <tr>
+                        <td>Control Transfer</td>
+                        <td>Change the flow of program execution</td>
+                        <td>JMP, BRANCH, CALL, RET</td>
+                    </tr>
+                    <tr>
+                        <td>System Control</td>
+                        <td>Manage system resources and states</td>
+                        <td>HALT, WAIT, SLEEP, INTERRUPT</td>
+                    </tr>
+                    <tr>
+                        <td>Floating-Point</td>
+                        <td>Perform operations on floating-point numbers</td>
+                        <td>FADD, FSUB, FMUL, FDIV</td>
+                    </tr>
+                    <tr>
+                        <td>SIMD (Single Instruction, Multiple Data)</td>
+                        <td>Perform the same operation on multiple data points simultaneously</td>
+                        <td>Vector operations like MMX, SSE, AVX</td>
+                    </tr>
+                </table>
+
+                <div class="code-block">
+# Example of assembly code using different instruction types
+    MOV R1, #10       ; Load immediate value 10 into register R1
+    MOV R2, #20       ; Load immediate value 20 into register R2
+    ADD R3, R1, R2    ; Add R1 and R2, store result in R3
+    CMP R3, #30       ; Compare R3 with value 30
+    BEQ equal         ; Branch if equal
+    SUB R3, R3, #5    ; Subtract 5 from R3 if not equal
+    JMP end           ; Jump to end
+equal:
+    ADD R3, R3, #5    ; Add 5 to R3 if equal
+end:
+    STR R3, [R4]      ; Store R3 value into memory address in R4
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>CISC vs. RISC Architectures</h3>
+                <p>The two main approaches to instruction set design are Complex Instruction Set Computer (CISC) and Reduced Instruction Set Computer (RISC). Each represents a different philosophy in processor design.</p>
+
+                <div class="two-column">
+                    <div>
+                        <h4>CISC (Complex Instruction Set Computer)</h4>
+                        <p>CISC emphasizes complex instructions that can perform multiple low-level operations in a single instruction.</p>
+                        
+                        <h5>Characteristics:</h5>
+                        <ul class="info-list">
+                            <li>Large number of instructions (100-250+)</li>
+                            <li>Variable-length instruction formats</li>
+                            <li>Complex addressing modes</li>
+                            <li>Instructions can directly operate on memory</li>
+                            <li>Emphasis on reducing code size</li>
+                            <li>Often uses microcode for instruction execution</li>
+                        </ul>
+                        
+                        <h5>Examples:</h5>
+                        <p>x86, x86-64, VAX, IBM System/360</p>
+                    </div>
+                    <div>
+                        <h4>RISC (Reduced Instruction Set Computer)</h4>
+                        <p>RISC emphasizes simple instructions that can be executed within a single clock cycle.</p>
+                        
+                        <h5>Characteristics:</h5>
+                        <ul class="info-list">
+                            <li>Fewer instructions (typically 50-100)</li>
+                            <li>Fixed-length instruction formats</li>
+                            <li>Simpler addressing modes</li>
+                            <li>Load-store architecture (only load/store instructions access memory)</li>
+                            <li>Focus on optimizing instruction execution speed</li>
+                            <li>Extensive use of registers</li>
+                            <li>Emphasis on pipelining</li>
+                        </ul>
+                        
+                        <h5>Examples:</h5>
+                        <p>ARM, MIPS, RISC-V, Power Architecture, SPARC</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Example of Operational Difference</h4>
+                    <p>A single ADD operation in memory demonstrates the difference:</p>
+                    <p><strong>CISC approach:</strong> <code>ADD operand1, operand2</code> - A single instruction can add a value in memory to another value in memory</p>
+                    <p><strong>RISC approach:</strong> Requires multiple instructions:</p>
+                    <code>
+                        LOAD R1, operand1<br>
+                        LOAD R2, operand2<br>
+                        ADD R3, R1, R2<br>
+                        STORE R3, result
+                    </code>
+                    <p>CISC uses fewer instructions but each is more complex. RISC uses more instructions but each is simpler and executes faster.</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Instruction Execution Cycle</h3>
+                <p>The instruction cycle (also called the fetch-decode-execute cycle) is the basic operation cycle of a computer processor. It describes the sequence of steps the CPU follows to execute an instruction.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>Basic Instruction Cycle Steps</h4>
+                        <ol class="info-list">
+                            <li><strong>Fetch:</strong> Retrieve the next instruction from memory using the address in the Program Counter (PC)</li>
+                            <li><strong>Decode:</strong> Determine what operation is to be performed based on the instruction opcode</li>
+                            <li><strong>Execute:</strong> Perform the operation specified by the instruction</li>
+                            <li><strong>Memory Access:</strong> If needed, read from or write to memory</li>
+                            <li><strong>Write Back:</strong> Write results back to registers or memory</li>
+                        </ol>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/500x300?text=Instruction+Execution+Cycle" alt="Instruction Execution Cycle">
+                        <p class="image-caption">The fetch-decode-execute cycle in processor operation</p>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Performance Considerations</h4>
+                    <p>In modern processors, the instruction cycle isn't strictly sequential. Techniques like pipelining, superscalar execution, and out-of-order execution allow multiple instructions to be processed simultaneously at different stages. This significantly improves performance but adds complexity to the processor design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Addressing Modes Section -->
+    <section id="addressing-modes" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Addressing Modes</h2>
+                <p>Understanding the various ways to specify the location of operands in instructions</p>
+            </div>
+
+            <div class="content-box">
+                <h3>What are Addressing Modes?</h3>
+                <p>Addressing modes are different ways of specifying the location of an operand in an instruction. They determine how the CPU will calculate the effective address of the operand.</p>
+                
+                <div class="info-box">
+                    <h4>Importance of Addressing Modes</h4>
+                    <p>Addressing modes are crucial for:</p>
+                    <ul>
+                        <li>Providing flexibility in accessing operands</li>
+                        <li>Supporting various programming constructs (arrays, pointers, structures)</li>
+                        <li>Optimizing code size and execution speed</li>
+                        <li>Accommodating different data structures and algorithms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Common Addressing Modes</h3>
+                <p>Different processor architectures support various addressing modes. Here are the most common ones:</p>
+                
+                <div class="address-modes-table">
+                    <table>
+                        <tr>
+                            <th>Addressing Mode</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                            <th>Effective Address Calculation</th>
+                        </tr>
+                        <tr>
+                            <td>Implied/Implicit</td>
+                            <td>Operand is implicitly defined by the instruction</td>
+                            <td><code>CLC</code> (Clear Carry)</td>
+                            <td>No address calculation needed</td>
+                        </tr>
+                        <tr>
+                            <td>Immediate</td>
+                            <td>Operand value is part of the instruction</td>
+                            <td><code>ADD R1, #25</code></td>
+                            <td>No address calculation needed</td>
+                        </tr>
+                        <tr>
+                            <td>Direct/Absolute</td>
+                            <td>Instruction contains the actual address of the operand</td>
+                            <td><code>ADD R1, [200]</code></td>
+                            <td>EA = Address field of instruction</td>
+                        </tr>
+                        <tr>
+                            <td>Indirect</td>
+                            <td>Instruction contains the address where the actual operand address is stored</td>
+                            <td><code>ADD R1, @[200]</code></td>
+                            <td>EA = Memory[Address field]</td>
+                        </tr>
+                        <tr>
+                            <td>Register</td>
+                            <td>Operand is in a CPU register</td>
+                            <td><code>ADD R1, R2</code></td>
+                            <td>No address calculation needed</td>
+                        </tr>
+                        <tr>
+                            <td>Register Indirect</td>
+                            <td>Register contains the address of the operand</td>
+                            <td><code>ADD R1, [R2]</code></td>
+                            <td>EA = Contents of register</td>
+                        </tr>
+                        <tr>
+                            <td>Indexed</td>
+                            <td>Address is sum of a base address and index register</td>
+                            <td><code>ADD R1, [200+R2]</code></td>
+                            <td>EA = Base address + Contents of index register</td>
+                        </tr>
+                        <tr>
+                            <td>Relative</td>
+                            <td>Address is offset from Program Counter</td>
+                            <td><code>BEQ +10</code></td>
+                            <td>EA = PC + Offset</td>
+                        </tr>
+                        <tr>
+                            <td>Base Register</td>
+                            <td>Address is offset from a base register</td>
+                            <td><code>ADD R1, [R2+100]</code></td>
+                            <td>EA = Contents of base register + Offset</td>
+                        </tr>
+                        <tr>
+                            <td>Auto-increment</td>
+                            <td>Register is used for address, then incremented</td>
+                            <td><code>ADD R1, [R2+]</code></td>
+                            <td>EA = Contents of register, then register++</td>
+                        </tr>
+                        <tr>
+                            <td>Auto-decrement</td>
+                            <td>Register is decremented, then used for address</td>
+                            <td><code>ADD R1, [-R2]</code></td>
+                            <td>EA = --register, then use contents</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>Addressing Mode Example Problem</h4>
+                    <p>An instruction is stored at location 300 with its address field at location 301. The address field has the value 400. A processor register R1 contains the number 200. Calculate the effective address if the addressing mode is:</p>
+                    
+                    <table>
+                        <tr>
+                            <th>Addressing Mode</th>
+                            <th>Calculation</th>
+                            <th>Effective Address</th>
+                        </tr>
+                        <tr>
+                            <td>Direct</td>
+                            <td>EA = 400 (the value in the address field)</td>
+                            <td>400</td>
+                        </tr>
+                        <tr>
+                            <td>Immediate</td>
+                            <td>Operand = 400 (not an address, but a value)</td>
+                            <td>N/A (value is 400)</td>
+                        </tr>
+                        <tr>
+                            <td>Relative</td>
+                            <td>EA = PC + Offset = 302 + 400</td>
+                            <td>702</td>
+                        </tr>
+                        <tr>
+                            <td>Register Indirect</td>
+                            <td>EA = Contents of R1 = 200</td>
+                            <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>Indexed</td>
+                            <td>EA = Address + R1 = 400 + 200</td>
+                            <td>600</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>Applications of Different Addressing Modes</h3>
+                <p>Each addressing mode is suited for specific programming constructs and situations:</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>Data Structures Implementation</h4>
+                        <ul class="info-list">
+                            <li><strong>Arrays:</strong> Indexed or base register addressing allows efficient array element access</li>
+                            <li><strong>Linked Lists:</strong> Register indirect addressing is ideal for traversing linked structures</li>
+                            <li><strong>Stacks:</strong> Auto-increment and auto-decrement modes are perfect for push/pop operations</li>
+                            <li><strong>Records/Structures:</strong> Base register with offset allows field access</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Program Control Constructs</h4>
+                        <ul class="info-list">
+                            <li><strong>Function Calls:</strong> Relative addressing for position-independent code</li>
+                            <li><strong>Loops:</strong> Auto-increment for iterating through arrays</li>
+                            <li><strong>Conditional Branches:</strong> Relative addressing for branches</li>
+                            <li><strong>Jump Tables:</strong> Indexed addressing for implementing switch/case</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+# Example showing addressing modes in array processing
+# Assume R1 contains base address of array, R2 is loop counter, R3 is element size
+
+    MOV R2, #0              ; Initialize loop counter (immediate addressing)
+loop:
+    CMP R2, #10             ; Compare with array size (immediate addressing)
+    BGE exit                ; Branch if greater or equal (relative addressing)
+    MUL R4, R2, R3          ; Calculate offset: index × element size
+    ADD R4, R1, R4          ; Calculate element address (indexed addressing)
+    LDR R5, [R4]            ; Load array element (register indirect addressing)
+    ADD R5, R5, #5          ; Add 5 to element value (immediate addressing)
+    STR R5, [R4]            ; Store result back (register indirect addressing)
+    ADD R2, R2, #1          ; Increment counter (immediate addressing)
+    B loop                  ; Repeat (relative addressing)
+exit:
+                </div>
+
+                <div class="warning-box">
+                    <h4>Considerations for Choosing Addressing Modes</h4>
+                    <p>The choice of addressing mode affects:</p>
+                    <ul>
+                        <li><strong>Instruction Length:</strong> More complex addressing modes require more bits in the instruction</li>
+                        <li><strong>Execution Time:</strong> Complex addressing modes may take more cycles to calculate effective addresses</li>
+                        <li><strong>Memory Access Patterns:</strong> Different modes create different access patterns that affect cache performance</li>
+                        <li><strong>Code Size vs. Speed:</strong> Sometimes there's a tradeoff between compact code and execution speed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Main Topics</h3>
+                    <ul>
+                        <li><a href="#cpu-organization">CPU Organization</a></li>
+                        <li><a href="#memory-hierarchy">Memory Hierarchy</a></li>
+                        <li><a href="#instruction-sets">Instruction Sets</a></li>
+                        <li><a href="#addressing-modes">Addressing Modes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Advanced Topics</h3>
+                    <ul>
+                        <li><a href="#">Pipelining Techniques</a></li>
+                        <li><a href="#">Cache Coherence</a></li>
+                        <li><a href="#">Branch Prediction</a></li>
+                        <li><a href="#">Superscalar Architectures</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Practice Problems</a></li>
+                        <li><a href="#">Architecture Simulators</a></li>
+                        <li><a href="#">Recommended Reading</a></li>
+                        <li><a href="#">Glossary of Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Computer Organization & Architecture Learning Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            // Declare variables
+            var i, tabcontent, tabbuttons;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tab-button" and remove "active" class
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            for (const link of links) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
